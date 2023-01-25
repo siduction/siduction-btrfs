@@ -17,7 +17,7 @@ The file "09_siduction-btrfs" provided here.
 The file was created and tested on an x86_64 system.  
 We need testers for other hardware platforms.
 
-**Be sure to read the Info.txt file before testing.**
+**Be sure to read the Info.md file before testing.**
 
 ## Known problems and bugs
 
@@ -38,7 +38,7 @@ Die hier bereitgestellte Datei "09_siduction-btrfs"
 Die Datei wurde auf einem x86_64 System erstellt und getestet.  
 Wir benötigen Tester für andere Hardware Plattformen.
 
-**Vor dem Test bitte unbedingt die Datei Info.txt lesen.**
+**Vor dem Test bitte unbedingt die Datei Info.md lesen.**
 
 ## Bekannte Probleme und Fehler
 
