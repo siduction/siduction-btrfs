@@ -17,7 +17,7 @@ The file "09_siduction-btrfs" provided here.
 The file was created and tested on an x86_64 system.  
 We need testers for other hardware platforms.
 
-**Be sure to read the Info.txt file before testing.
+**Be sure to read the Info.txt file before testing.**
 
 ## Known problems and bugs
 
