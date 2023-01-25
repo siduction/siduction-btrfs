@@ -1,5 +1,5 @@
 # grub-btrfs-rollback_settings
-Btrfs file system - improved handling of rollback by Grub.
+Btrfs file system - improved handling of rollback by Grub.  
 Grub menu is incorrect after a rollback.  
 
 ## Cause (EN)
