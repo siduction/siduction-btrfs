@@ -2,7 +2,11 @@
 Btrfs file system - improved handling of rollback by Grub.  
 Grub menu is incorrect after a rollback.  
 
-## Cause (EN)
+--------
+
+# EN
+
+## Cause
 
 + The default boot entry always points to the "/@" subvolume using "rootflags=".  
 + For kernel and initrd, the snapshot that was booted into is always used and not the one that is Btrfs-default after the rollback.  
@@ -23,7 +27,11 @@ We need testers for other hardware platforms.
 
 Currently unknown, but likely, are incorrect paths when used on platforms other than x86_64 and x686.
 
-## Ursache (DE)
+--------
+
+# DE
+
+## Ursache
 
 + Der Standard Booteintrag zeigt mittels "rootflags=" immer auf das "/@" Subvolumen.  
 + Für Kernel und initrd wird immer der Snapshot verwendet, in den gebootet wurde und nicht der, der nach dem Rollback Btrfs-default ist.  
