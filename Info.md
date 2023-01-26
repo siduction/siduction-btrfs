@@ -60,7 +60,7 @@ The default entry in the grub menu contains the boot target in the form of *subv
 Sie ersetzt nicht das grundlegende Verständniss der Funktion des Btrfs Dateisystems, seiner Subvolumen und Snapshots.
 
 Aus diesem Grund gleich zu Beginn ein wichtiger Hinweis:  
-Nach einem Rollback mit anschließendem Reboot in den neuen Btrfs default Subvolumen ist ein *update-grub* und ein *grub-install* notwendig. Sonst bleibt in Grub stage-1 der Verweis auf das vorherige default Subvolumen erhalten und Grub lädt von dort die Menüdatei.
+Nach einem Rollback mit anschließendem Reboot in das neue Btrfs default Subvolumen ist ein *update-grub* und ein *grub-install* notwendig. Sonst bleibt in Grub stage-1 der Verweis auf das vorherige default Subvolumen erhalten und Grub lädt von dort die Menüdatei.
 
 ### Beteiligten Konponenten
 
