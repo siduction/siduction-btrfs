@@ -28,7 +28,7 @@ The numbering (09\_) causes Grub to execute the file before *10_linux*. This is 
 If the file system is **not** Btrfs, the file revokes its own execution rights and exits without editing the Grub menu file. Henceforth, Grub ignores it when updating the menu.  
 If the file system is Btrfs, the file *10_linux* is stripped of the execution rights and *09_siduction-btrfs* creates the default menu items of the Grub menu.
 
-**changes from `10_linux'**
+**Changes from `10_linux'**
 
 The Grub function `make_system_path_relative_to_its_root /` (10_linux from line 84) always generates the kernel option *rootflags=subvol=@*. This is only correct as long as Btrfs does not know a default subvolume, or no rollback has been done. This is a known bug in Debian based OS. The solution is to disable this kernel option. Btrfs uses the default subvolume by itself.
 
@@ -47,7 +47,7 @@ The default entry in the grub menu contains the boot target in the form of *subv
   Then *update-grub* is necessary to boot directly into the rollback target.  
 + *grub-install* in the rollback target  
   The Grub menu file in the rollback target is different from the menu just used. Grub stage-1 still points to the previous Btrfs default subvolume. If the state of the OS after the rollback is as desired, we run *update-grub* and *grub-install* in succession.  
-  This will give the rollback target, which is also the Btrfs default subvolume, an updated grub menu file and grub stage 1 will point to this.
+  This will give the rollback target, which is also the Btrfs default subvolume, an updated grub menu file and grub stage-1 will point to this.
 
 ---------
 
