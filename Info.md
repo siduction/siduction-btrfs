@@ -47,8 +47,12 @@ The default entry in the grub menu contains the boot target in the form of *subv
   Then *update-grub* is necessary to boot directly into the rollback target.  
 + *grub-install* in the rollback target  
   The Grub menu file in the rollback target is different from the menu just used. Grub stage-1 still points to the previous Btrfs default subvolume. If the state of the OS after the rollback is as desired, we run *update-grub* and *grub-install* in succession.  
-  This will give the rollback target, which is also the Btrfs default subvolume, an updated grub menu file and grub stage-1 will point to this.
-
+  This will give the rollback target, which is also the Btrfs default subvolume, an updated grub menu file and grub stage-1 will point to this.  
++ *apt install/remove*  
+  *snapper* triggers apt and creates a pre- and post-snapshot (default). Then *grub-btrfs* updates the "siduction snapshots" submenu.
++ *apt upgrade/install/remove* with kernel  
+  For apt actions involving kernels, apt runs an *update-grub*, *snapper* takes a pre- and post-snapshot, and *grub-btrfs* updates the "siduction snapshots" submenu.
+  
 ---------
 
 # DE
@@ -100,8 +104,8 @@ Der default Eintrag im Grubmenü enthält das Bootziel in Form von *subvolume @*
   Anschließend ist *update-grub* notwendig um direkt in das Rollback-Ziel booten zu können.  
 + *grub-install* im Rollback-Ziel  
   Die Grub Menüdatei im Rollback-Ziel unterscheidet sich von dem soeben benutzten Menü. Grub stage-1 verweist noch auf das vorherige Btrfs default Subvolumen. Ist der Zustand des OS nach dem Rollback so wie gewünscht, führen wir nacheinander *update-grub* und *grub-install* aus.  
-  Dadurch erhält das Rollback-Ziel, das gleichzeitig das Btrfs default Subvolumen ist, eine aktualisierte Grub Menüdatei und Grub stage-1 verweist hierauf.
-
-
-
-
+  Dadurch erhält das Rollback-Ziel, das gleichzeitig das Btrfs default Subvolumen ist, eine aktualisierte Grub Menüdatei und Grub stage-1 verweist hierauf.  
++ *apt install/remove*  
+  *snapper* triggert apt und erstellt einen pre- und post-Snapshot (Standardeinstellung). Anschließend aktualisiert *grub-btrfs* das Untermenü "siduction snapshots".
++ *apt upgrade/install/remove* mit Kernel  
+  Bei apt Aktionen, an denen Kernel beteiligt sind, führt apt ein *update-grub* aus, *snapper* erstellt einen pre- und post-Snapshot und *grub-btrfs* aktualisiert das Untermenü "siduction snapshots".
