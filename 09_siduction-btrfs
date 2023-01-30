@@ -54,7 +54,6 @@ export TEXTDOMAIN=grub
 export TEXTDOMAINDIR="${datarootdir}/locale"
 
 CLASS="--class gnu-linux --class gnu --class os"
-SUPPORTED_INITS="sysvinit:/lib/sysvinit/init systemd:/lib/systemd/systemd upstart:/sbin/upstart"
 
 if [ "x${GRUB_DISTRIBUTOR}" = "x" ] ; then
   OS=GNU/Linux
@@ -123,25 +122,15 @@ linux_entry ()
   if [ -z "$boot_device_id" ]; then
       boot_device_id="$(grub_get_device_id "${GRUB_DEVICE}")"
   fi
-  if [ x$type != xsimple ] ; then
-      case $type in
-	  recovery)
-	      title="$(gettext_printf "%s %s, Linux recovery %s" "${os}" "${subvol_default}" "${version}")" ;;
-	  init-*)
-	      title="$(gettext_printf "%s, with Linux %s (%s)" "${os}" "${version}" "${type#init-}")" ;;
-	  *)
-	      title="$(gettext_printf "%s %s, with Linux %s" "${os}" "${subvol_default}" "${version}")" ;;
-      esac
-      if [ x"$title" = x"$GRUB_ACTUAL_DEFAULT" ] || [ x"Previous Linux versions>$title" = x"$GRUB_ACTUAL_DEFAULT" ]; then
-	  replacement_title="$(echo "Advanced options for ${OS}" | sed 's,>,>>,g')>$(echo "$title" | sed 's,>,>>,g')"
-	  quoted="$(echo "$GRUB_ACTUAL_DEFAULT" | grub_quote)"
-	  title_correction_code="${title_correction_code}if [ \"x\$default\" = '$quoted' ]; then default='$(echo "$replacement_title" | grub_quote)'; fi;"
-	  grub_warn "$(gettext_printf "Please don't use old title \`%s' for GRUB_DEFAULT, use \`%s' (for versions before 2.00) or \`%s' (for 2.00 or later)" "$GRUB_ACTUAL_DEFAULT" "$replacement_title" "gnulinux-advanced-$boot_device_id>gnulinux-$version-$type-$boot_device_id")"
-      fi
-      echo "menuentry '$(echo "$title" | grub_quote)' ${CLASS} \$menuentry_id_option 'gnulinux-$version-$type-$boot_device_id' {" | sed "s/^/$submenu_indentation/"
-  else
-      echo "menuentry '$(echo "$os" | grub_quote)' ${CLASS} \$menuentry_id_option 'gnulinux-simple-$boot_device_id' {" | sed "s/^/$submenu_indentation/"
-  fi      
+  case $type in
+  recovery)
+      title="$(gettext_printf "%s %s recovery, with Linux %s" "${os}" "${subvol_default}" "${version}")" ;;
+  advanced)
+      title="$(gettext_printf "%s %s, with Linux %s" "${os}" "${subvol_default}" "${version}")" ;;
+  simple)
+      title="$(gettext_printf "%s %s" "${os}" "${subvol_default}")" ;;
+  esac
+  echo "menuentry '$(echo "$title" | grub_quote)' ${CLASS} \$menuentry_id_option 'gnulinux-$version-$type-$boot_device_id' {" | sed "s/^/$submenu_indentation/"
   if [ "$quick_boot" = 1 ]; then
       echo "	recordfail" | sed "s/^/$submenu_indentation/"
   fi
@@ -315,14 +304,7 @@ while [ "x$list" != "x" ] ; do
   done
 
   initrd_real=
-  for i in "initrd.img-${version}" "initrd-${version}.img" "initrd-${version}.gz" \
-	   "initrd-${version}" "initramfs-${version}.img" \
-	   "initrd.img-${alt_version}" "initrd-${alt_version}.img" \
-	   "initrd-${alt_version}" "initramfs-${alt_version}.img" \
-	   "initramfs-genkernel-${version}" \
-	   "initramfs-genkernel-${alt_version}" \
-	   "initramfs-genkernel-${GENKERNEL_ARCH}-${version}" \
-	   "initramfs-genkernel-${GENKERNEL_ARCH}-${alt_version}"; do
+  for i in "initrd.img-${version}" "initrd.img-${alt_version}"; do
     if test -e "${dirname}/${i}" ; then
       initrd_real="${i}"
       break
@@ -341,7 +323,7 @@ while [ "x$list" != "x" ] ; do
   fi
 
   config=
-  for i in "${dirname}/config-${version}" "${dirname}/config-${alt_version}" "/etc/kernels/kernel-config-${version}" ; do
+  for i in "${dirname}/config-${version}" "${dirname}/config-${alt_version}"; do
     if test -e "${i}" ; then
       config="${i}"
       break
@@ -389,13 +371,7 @@ while [ "x$list" != "x" ] ; do
 
   linux_entry "${OS}" "${version}" advanced \
               "${GRUB_CMDLINE_LINUX} ${GRUB_CMDLINE_LINUX_DEFAULT}"
-  for supported_init in ${SUPPORTED_INITS}; do
-    init_path="${supported_init#*:}"
-    if [ -x "${init_path}" ] && [ "$(readlink -f /sbin/init)" != "$(readlink -f "${init_path}")" ]; then
-      linux_entry "${OS}" "${version}" "init-${supported_init%%:*}" \
-		  "${GRUB_CMDLINE_LINUX} ${GRUB_CMDLINE_LINUX_DEFAULT} init=${init_path}"
-    fi
-  done
+
   if [ "x${GRUB_DISABLE_RECOVERY}" != "xtrue" ]; then
     linux_entry "${OS}" "${version}" recovery \
                 "${GRUB_CMDLINE_LINUX_RECOVERY} ${GRUB_CMDLINE_LINUX}"
