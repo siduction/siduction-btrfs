@@ -25,15 +25,17 @@ if [ "x${GRUB_FS}" = "xbtrfs" ]; then
     btrfs_default="$(btrfs subvolume get-default /)"
     btrfs_default_path=$(echo "${btrfs_default}" | sed -e 's,.*@,@,')
     if [ "x${btrfs_default_path}" = "x${btrfs_default}" ] || [ "x${btrfs_default_path}" = "x@" ]; then
+        GRUB_CMDLINE_LINUX="rootflags=subvol=@ ${GRUB_CMDLINE_LINUX}"
         btrfs_default_path=""
         subvol_default="subvolume @"
         dirname="/boot"
         rel_dirname="/@${dirname}"
     else
+        GRUB_CMDLINE_LINUX="rootflags=subvol=${btrfs_default_path} ${GRUB_CMDLINE_LINUX}"
+        rel_dirname="/${btrfs_default_path}/boot"
         btrfs_default_path=$(echo "${btrfs_default_path}" | sed -e 's,@,\.,')
         subvol_default=$(echo "${btrfs_default}" | sed -e 's,.*ts/,snapshot ,' -e 's,/.*,,')
         dirname="${btrfs_default_path}/boot"
-        rel_dirname=$(echo "${dirname}" | sed -e 's,\.,/@,')
     fi
 else
     chmod -x /etc/grub.d/09_siduction-btrfs
@@ -118,7 +120,7 @@ linux_entry ()
   type="$3"
   args="$4"
 
-  # Preparing the menu title
+  # Prepare the menu title
   if [ -z "$boot_device_id" ]; then
       boot_device_id="$(grub_get_device_id "${GRUB_DEVICE}")"
   fi
