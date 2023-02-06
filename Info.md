@@ -52,7 +52,16 @@ The default entry in the grub menu contains the boot target in the form of *subv
   *snapper* triggers apt and creates a pre- and post-snapshot (default). Then *grub-btrfs* updates the "siduction snapshots" submenu.
 + *apt upgrade/install/remove* with kernel  
   For apt actions involving kernels, apt runs an `update-grub`, *snapper* takes a pre- and post-snapshot, and *grub-btrfs* updates the "siduction snapshots" submenu.
-  
+
+## systemd and scripts
+
+The archive *files-siduction-btrfs.tar.gz* contains a set of systemd units and the script *test-btrfs-default.sh*. The systemd units check after a shnapshot or rollback if the file *grub.cfg* has to be rebuilt and then activate the script.  
+The script *install.sh* simplifies the installation for the user.
+
+Download the archive, unpack it at an arbitrary place, change into the folder *files-siduction-btrfs/* and call **`install.sh`** with **root** privileges.
+
+Afterwards the functions described above are available.
+
 ---------
 
 # DE
@@ -109,3 +118,12 @@ Der default Eintrag im Grubmenü enthält das Bootziel in Form von *subvolume @*
   *snapper* triggert apt und erstellt einen pre- und post-Snapshot (Standardeinstellung). Anschließend aktualisiert *grub-btrfs* das Untermenü "siduction snapshots".
 + *apt upgrade/install/remove* mit Kernel  
   Bei apt Aktionen, an denen Kernel beteiligt sind, führt apt ein `update-grub` aus, *snapper* erstellt einen pre- und post-Snapshot und *grub-btrfs* aktualisiert das Untermenü "siduction snapshots".
+
+## systemd und Scripte
+
+Das Archiv *files-siduction-btrfs.tar.gz* enthält einen Satz systemd Units und das Script *test-btrfs-default.sh*. Die systemd Units überprüfen nach einem Shnapshot oder Rollback ob die Datei *grub.cfg* neu erstellt werden muss und aktivieren dann das Script.  
+Das Script *install.sh* vereinfacht für den Anwender die Installation.
+
+Das Archiv herunterladen, an einem beliebigen Ort entpacken, in den Ordner *files-siduction-btrfs/* wechseln und mit **root**-Rechten **`install.sh`** aufrufen.
+
+Anschließend sind die oben beschriebenen Funktionen verfügbar.
