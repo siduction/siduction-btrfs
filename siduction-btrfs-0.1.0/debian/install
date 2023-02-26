@@ -1,0 +1,5 @@
+09_siduction-btrfs          /etc/grub.d/
+siduction_btrfs.path        /usr/lib/systemd/system/
+siduction_btrfs.service     /usr/lib/systemd/system/
+siduction_btrfs.timer       /usr/lib/systemd/system/
+test-btrfs-default.sh       /usr/share/siduction/

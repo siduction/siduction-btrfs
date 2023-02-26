@@ -1,0 +1,9 @@
+#! /bin/bash
+#
+# Name: postinst
+# Part of siduction-btrfs
+
+systemctl enable --now siduction_btrfs.timer
+systemctl enable --now siduction_btrfs.path
+
+exit 0

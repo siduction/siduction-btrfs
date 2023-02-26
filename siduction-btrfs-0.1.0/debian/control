@@ -1,0 +1,26 @@
+Source: siduction-btrfs
+Section: utils
+Priority: optional
+Maintainer: Axel Konrad <emma-konrad@web.de>
+Build-Depends: debhelper-compat (= 13)
+Standards-Version: 4.6.2
+Homepage: https://github.com/siduction/grub-btrfs-rollback_settings
+Rules-Requires-Root: no
+#Vcs-Git: https://salsa.debian.org/debian/siduction-btrfs.git
+#Vcs-Browser: https://salsa.debian.org/debian/siduction-btrfs
+
+Package: siduction-btrfs
+Architecture: all
+Depends: btrfs-progs,
+         grub-btrfs,
+         grub-common,
+         snapper,
+         ${misc:Depends},
+         ${shlibs:Depends}
+Description: Optimizes grub menu after snapper rollback
+ After a rollback using snapper or manually changing the btrfs default
+ subvolume, siduction-btrfs optimizes the default boot entry in the grub menu.
+ This is an empty package. No binary included.
+ .
+ The default boot entry points to the new default subvolume with the kernels
+ present.

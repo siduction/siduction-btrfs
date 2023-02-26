@@ -1,0 +1,12 @@
+# /usr/lib/systemd/system/siduction_btrfs.path
+[Unit]
+Description=Part of siduction-btrfs
+Description=Monitors changes of /boot/grub/grub-btrfs.cfg
+Documentation=https://github.com/siduction/grub-btrfs-rollback-settings
+After=siduction_btrfs.service
+
+[Path]
+PathModified=/boot/grub/grub-btrfs.cfg
+
+[Install]
+WantedBy=multi-user.target

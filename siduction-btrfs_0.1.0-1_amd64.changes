@@ -1,0 +1,34 @@
+Format: 1.8
+Date: Sun, 26 Feb 2023 15:10:32 +0100
+Source: siduction-btrfs
+Binary: siduction-btrfs
+Architecture: source all
+Version: 0.1.0-1
+Distribution: UNRELEASED
+Urgency: low
+Maintainer: Axel Konrad <emma-konrad@web.de>
+Changed-By: Axel Konrad <emma-konrad@web.de>
+Description:
+ siduction-btrfs - Optimizes grub menu after snapper rollback
+Changes:
+ siduction-btrfs (0.1.0-1) UNRELEASED; urgency=low
+ .
+   * Initial release.
+Checksums-Sha1:
+ ae0c0d71069736b7ffc7a04f8cab4fb3e16d6a38 933 siduction-btrfs_0.1.0-1.dsc
+ 6dd7c05ac0a62f8012c4cf2a679821b4dc40bd7f 5019 siduction-btrfs_0.1.0.orig.tar.gz
+ 1fdf9004f8689ff8691e57f9c4e94edab45e9e5b 2620 siduction-btrfs_0.1.0-1.debian.tar.xz
+ 65040b3509b77d93cd914b8d5d3d42842f02b9cd 6876 siduction-btrfs_0.1.0-1_all.deb
+ fd5153187791befbf839abd466c1a9b8efd4712d 5686 siduction-btrfs_0.1.0-1_amd64.buildinfo
+Checksums-Sha256:
+ cce375bc06db137e326012685d8d079bc209d318f66495483474045968b39edc 933 siduction-btrfs_0.1.0-1.dsc
+ 39314de55ef54b1bf26d9cd7ecd96d5fd8ecb6377275b7b546386659df3d1de1 5019 siduction-btrfs_0.1.0.orig.tar.gz
+ 195977638a38aabf204b5cd7462b58d96f862fd53d338576e5ce061d9ca1b999 2620 siduction-btrfs_0.1.0-1.debian.tar.xz
+ cc580dd6b7d95e62a545eb6a820452745c26cadbe0434e41b54cc0c43957b5f5 6876 siduction-btrfs_0.1.0-1_all.deb
+ 73712a414c3d2964be3e83321638c9d8ffd99759ed2f70f69944b33cae14fb92 5686 siduction-btrfs_0.1.0-1_amd64.buildinfo
+Files:
+ 52f89a32af0ac8daa18d65717129601d 933 utils optional siduction-btrfs_0.1.0-1.dsc
+ 0b2f6844b81703529ae18e13a2152b43 5019 utils optional siduction-btrfs_0.1.0.orig.tar.gz
+ 7f54f75428389f8d340ffc3326f5bdd2 2620 utils optional siduction-btrfs_0.1.0-1.debian.tar.xz
+ 298326dd9d2d38874bbbfcfc3da3e96d 6876 utils optional siduction-btrfs_0.1.0-1_all.deb
+ 92932e102a9738722dd969363de2b6dd 5686 utils optional siduction-btrfs_0.1.0-1_amd64.buildinfo
