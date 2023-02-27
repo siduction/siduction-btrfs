@@ -2,6 +2,6 @@ e69f9cb135e20e49732df82bb77792f3  usr/lib/systemd/system/siduction_btrfs.path
 e9e614fddc975a28db95d1a7dbb519cd  usr/lib/systemd/system/siduction_btrfs.service
 0c7daff77aede20cdc6511c4e5466ec4  usr/lib/systemd/system/siduction_btrfs.timer
 d789842ed5b3156b336fc171fa04dab9  usr/share/doc/siduction-btrfs/README.Debian
-3b9f0c94527d38194a4b67ad20019c61  usr/share/doc/siduction-btrfs/changelog.Debian.gz
+f6b1272403ebe8ba7dc80bee9177dfc3  usr/share/doc/siduction-btrfs/changelog.Debian.gz
 918b2da9e94ce43d30a6f590f607b181  usr/share/doc/siduction-btrfs/copyright
-ecb74a910ae5b88d360736e2b72df742  usr/share/siduction/test-btrfs-default.sh
+b2f7b90bf8a96f8fd82bf108c17ac2c2  usr/share/siduction/test-btrfs-default.sh

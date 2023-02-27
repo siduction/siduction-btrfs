@@ -1,34 +1,35 @@
 Format: 1.8
-Date: Sun, 26 Feb 2023 15:10:32 +0100
+Date: Mon, 27 Feb 2023 14:35:42 +0100
 Source: siduction-btrfs
 Binary: siduction-btrfs
 Architecture: source all
 Version: 0.1.0-1
-Distribution: UNRELEASED
+Distribution: unstable
 Urgency: low
 Maintainer: Axel Konrad <emma-konrad@web.de>
 Changed-By: Axel Konrad <emma-konrad@web.de>
 Description:
  siduction-btrfs - Optimizes grub menu after snapper rollback
 Changes:
- siduction-btrfs (0.1.0-1) UNRELEASED; urgency=low
+ siduction-btrfs (0.1.0-1) unstable; urgency=low
  .
+   * Added test for root filesystem type
    * Initial release.
 Checksums-Sha1:
- ae0c0d71069736b7ffc7a04f8cab4fb3e16d6a38 933 siduction-btrfs_0.1.0-1.dsc
- 6dd7c05ac0a62f8012c4cf2a679821b4dc40bd7f 5019 siduction-btrfs_0.1.0.orig.tar.gz
- 1fdf9004f8689ff8691e57f9c4e94edab45e9e5b 2620 siduction-btrfs_0.1.0-1.debian.tar.xz
- 65040b3509b77d93cd914b8d5d3d42842f02b9cd 6876 siduction-btrfs_0.1.0-1_all.deb
- fd5153187791befbf839abd466c1a9b8efd4712d 5686 siduction-btrfs_0.1.0-1_amd64.buildinfo
+ faab7081146159599e668f43972ad171c33a06b4 933 siduction-btrfs_0.1.0-1.dsc
+ 9b14d43051d8f7ff2c3bb45df0d301e2f9e01ef6 5027 siduction-btrfs_0.1.0.orig.tar.gz
+ 46de74bd629a63740a74637d43d9e033910a8d67 2788 siduction-btrfs_0.1.0-1.debian.tar.xz
+ 25f6644e5031fc04c2ffad1f5a5661612327d270 7008 siduction-btrfs_0.1.0-1_all.deb
+ 2f10ad6dba3667514478526edbc8cdbaf4b3f78c 5686 siduction-btrfs_0.1.0-1_amd64.buildinfo
 Checksums-Sha256:
- cce375bc06db137e326012685d8d079bc209d318f66495483474045968b39edc 933 siduction-btrfs_0.1.0-1.dsc
- 39314de55ef54b1bf26d9cd7ecd96d5fd8ecb6377275b7b546386659df3d1de1 5019 siduction-btrfs_0.1.0.orig.tar.gz
- 195977638a38aabf204b5cd7462b58d96f862fd53d338576e5ce061d9ca1b999 2620 siduction-btrfs_0.1.0-1.debian.tar.xz
- cc580dd6b7d95e62a545eb6a820452745c26cadbe0434e41b54cc0c43957b5f5 6876 siduction-btrfs_0.1.0-1_all.deb
- 73712a414c3d2964be3e83321638c9d8ffd99759ed2f70f69944b33cae14fb92 5686 siduction-btrfs_0.1.0-1_amd64.buildinfo
+ 39c1c686b47c01979cf6136b3fe46e81fd3e0a1edd043f8139add6a68223c797 933 siduction-btrfs_0.1.0-1.dsc
+ dfd5a47b0ce44aae6fd1e3d7f6d5c71d79dff5bbe56bedb582b3ea32f934b50a 5027 siduction-btrfs_0.1.0.orig.tar.gz
+ 95469fe254cdc28447e9c47f4c20be507403729fabf5d201927a058681466625 2788 siduction-btrfs_0.1.0-1.debian.tar.xz
+ 4d43ef041bbe22e6d50565deae90b715ee3aa8b54eba13a21465789906a5ad7c 7008 siduction-btrfs_0.1.0-1_all.deb
+ 4aed60b1a4cb3f592fdd59ddbcc816dfcf2cdf84f1486b38265e30f2d16dc982 5686 siduction-btrfs_0.1.0-1_amd64.buildinfo
 Files:
- 52f89a32af0ac8daa18d65717129601d 933 utils optional siduction-btrfs_0.1.0-1.dsc
- 0b2f6844b81703529ae18e13a2152b43 5019 utils optional siduction-btrfs_0.1.0.orig.tar.gz
- 7f54f75428389f8d340ffc3326f5bdd2 2620 utils optional siduction-btrfs_0.1.0-1.debian.tar.xz
- 298326dd9d2d38874bbbfcfc3da3e96d 6876 utils optional siduction-btrfs_0.1.0-1_all.deb
- 92932e102a9738722dd969363de2b6dd 5686 utils optional siduction-btrfs_0.1.0-1_amd64.buildinfo
+ 4468332f781fa4009b0edc1fdaddc21b 933 utils optional siduction-btrfs_0.1.0-1.dsc
+ 5e49a9f34fe0b92577af639cdfd2ac0c 5027 utils optional siduction-btrfs_0.1.0.orig.tar.gz
+ dcfcffdaa4fe7c11e758d06e7ca8a89f 2788 utils optional siduction-btrfs_0.1.0-1.debian.tar.xz
+ 694ccad51e3122abd3ff0e620ee7f536 7008 utils optional siduction-btrfs_0.1.0-1_all.deb
+ c8cfd9fdefbf130c09987d48a9283ef3 5686 utils optional siduction-btrfs_0.1.0-1_amd64.buildinfo

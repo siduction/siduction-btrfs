@@ -1,7 +1,7 @@
  dpkg-buildpackage -us -uc -ui -i -I
 dpkg-buildpackage: Information: Quellpaket siduction-btrfs
 dpkg-buildpackage: Information: Quellversion 0.1.0-1
-dpkg-buildpackage: Information: Quelldistribution UNRELEASED
+dpkg-buildpackage: Information: Quelldistribution unstable
 dpkg-buildpackage: Information: Quelle geändert durch Axel Konrad <emma-konrad@web.de>
  dpkg-source -i -I --before-build .
 dpkg-buildpackage: Information: Host-Architektur amd64
@@ -75,7 +75,7 @@ N:   Check: debian/changelog
 N:   Renamed from: new-package-should-close-itp-bug
 N: 
 N:
-W: siduction-btrfs: maintainer-script-calls-systemctl [postinst:6]
+W: siduction-btrfs: maintainer-script-calls-systemctl [postinst:11]
 N: 
 N:   The maintainer script calls systemctl directly. Actions such as enabling a
 N:   unit file should be done using deb-systemd-helper so that they work on
@@ -92,34 +92,6 @@ N:
 N:   Visibility: warning
 N:   Show-Always: no
 N:   Check: maintainer-scripts/systemctl
-N: 
-N:
-W: siduction-btrfs: maintainer-script-calls-systemctl [postinst:7]
-N:
-W: siduction-btrfs: maintainer-script-ignores-errors [postinst]
-N: 
-N:   The maintainer script doesn't seem to set the -e flag which ensures that
-N:   the script's execution is aborted when any executed command fails.
-N: 
-N:   Please refer to Scripts (Section 10.4) in the Debian Policy Manual for
-N:   details.
-N: 
-N:   Visibility: warning
-N:   Show-Always: no
-N:   Check: scripts
-N: 
-N:
-W: siduction-btrfs source: maintainer-script-lacks-debhelper-token [debian/postinst]
-N: 
-N:   This package is built using debhelper commands that may modify maintainer
-N:   scripts, but the maintainer scripts do not contain the "#DEBHELPER#" token
-N:   debhelper uses to modify them.
-N:   
-N:   Adding the token to the scripts is recommended.
-N: 
-N:   Visibility: warning
-N:   Show-Always: no
-N:   Check: debhelper
 N: 
 N:
 I: siduction-btrfs: bash-term-in-posix-shell 'function gfxmode' [etc/grub.d/09_siduction-btrfs:235]

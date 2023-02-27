@@ -6,6 +6,8 @@
 # After booting or new snapshot, checks if Btrfs default subvolume, booted subvolume, and Grub default menu item match.
 # Create new /boot/grub/grub.cfg if not.
 
+set -e
+
 sleep 10
 btrfs_default=$(echo "$(btrfs subvolume get-default /)" | sed -E 's,[^@]*@?,@,')
 booted_subvol=$(btrfs inspect-internal subvolid-resolve $(btrfs inspect-internal rootid /) /)
@@ -25,3 +27,5 @@ else
     echo "Start \"update-grub\""
     update-grub
 fi
+
+exit 0

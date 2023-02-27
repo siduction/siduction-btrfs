@@ -1,9 +1,16 @@
 #! /bin/bash
 #
-# Name: postinst
-# Part of siduction-btrfs
+# postinst script for siduction-btrfs
+#
 
-systemctl enable --now siduction_btrfs.timer
-systemctl enable --now siduction_btrfs.path
+set -e
+
+ROOTFSTYP=$( grep '[[:space:]]\+/[[:space:]]\+' /etc/fstab | awk '{ print $3 }' )
+
+if [ "x$ROOTFSTYP" = "xbtrfs" ]; then
+    systemctl enable --now siduction_btrfs.timer siduction_btrfs.path
+fi
+
+
 
 exit 0
