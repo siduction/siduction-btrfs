@@ -1,3 +1,9 @@
+siduction-btrfs (0.1.0-2) UNRELEASED; urgency=medium
+
+  * Move the / filesystem type test into test-btrfs-default.sh
+
+ -- Axel Konrad <emma-konrad@web.de>  Tue, 28 Feb 2023 19:34:36 +0100
+
 siduction-btrfs (0.1.0-1) unstable; urgency=low
 
   * Added test for root filesystem type

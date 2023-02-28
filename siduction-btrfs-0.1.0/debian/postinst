@@ -5,11 +5,7 @@
 
 set -e
 
-ROOTFSTYP=$( grep '[[:space:]]\+/[[:space:]]\+' /etc/fstab | awk '{ print $3 }' )
-
-if [ "x$ROOTFSTYP" = "xbtrfs" ]; then
-    systemctl enable --now siduction_btrfs.timer siduction_btrfs.path
-fi
+systemctl enable siduction_btrfs.timer siduction_btrfs.path
 
 #DEBHELPER#
 

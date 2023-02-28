@@ -1,0 +1,138 @@
+ dpkg-buildpackage -us -uc -ui -i -I
+dpkg-buildpackage: Information: Quellpaket siduction-btrfs
+dpkg-buildpackage: Information: Quellversion 0.1.0-2
+dpkg-buildpackage: Information: Quelldistribution UNRELEASED
+dpkg-buildpackage: Information: Quelle geändert durch Axel Konrad <emma-konrad@web.de>
+ dpkg-source -i -I --before-build .
+dpkg-buildpackage: Information: Host-Architektur amd64
+ debian/rules clean
+dh clean
+   dh_clean
+ dpkg-source -i -I -b .
+dpkg-source: Information: Quellformat »3.0 (quilt)« wird verwendet
+dpkg-source: Information: siduction-btrfs wird unter Benutzung des existierenden ./siduction-btrfs_0.1.0.orig.tar.gz gebaut
+dpkg-source: Information: siduction-btrfs wird in siduction-btrfs_0.1.0-2.debian.tar.xz gebaut
+dpkg-source: Information: siduction-btrfs wird in siduction-btrfs_0.1.0-2.dsc gebaut
+ debian/rules binary
+dh binary
+   dh_update_autotools_config
+   dh_autoreconf
+   create-stamp debian/debhelper-build-stamp
+   dh_prep
+   dh_auto_install --destdir=debian/siduction-btrfs/
+   dh_install
+   dh_installdocs
+   dh_installchangelogs
+   dh_perl
+   dh_link
+   dh_strip_nondeterminism
+   dh_compress
+   dh_fixperms
+   dh_missing
+   dh_installdeb
+   dh_gencontrol
+dpkg-gencontrol: Warnung: Feld Depends von Paket siduction-btrfs: Substitutionsvariable ${shlibs:Depends} verwandt, aber nicht definiert
+   dh_md5sums
+   dh_builddeb
+dpkg-deb: Paket »siduction-btrfs« wird in »../siduction-btrfs_0.1.0-2_all.deb« gebaut.
+ dpkg-genbuildinfo -O../siduction-btrfs_0.1.0-2_amd64.buildinfo
+ dpkg-genchanges -O../siduction-btrfs_0.1.0-2_amd64.changes
+dpkg-genchanges: Information: Originalquellen beim Hochladen nicht hinzufügen
+ dpkg-source -i -I --after-build .
+dpkg-buildpackage: Information: Binärpakete(e) und Diff hochzuladen (Originalquellen NICHT enthalten)
+Now running lintian -i -I --show-overrides siduction-btrfs_0.1.0-2_amd64.changes ...
+N:
+E: siduction-btrfs source: empty-debian-tests-control [debian/tests/control]
+N: 
+N:   
+N:   The debian/tests/control is empty when any comments are removed.
+N: 
+N:   Please refer to
+N:   https://salsa.debian.org/ci-team/autopkgtest/tree/master/doc/README.package-tests.rst
+N:   for details.
+N: 
+N:   Visibility: error
+N:   Show-Always: no
+N:   Check: testsuite
+N: 
+N:
+W: siduction-btrfs: maintainer-script-calls-systemctl [postinst:8]
+N: 
+N:   The maintainer script calls systemctl directly. Actions such as enabling a
+N:   unit file should be done using deb-systemd-helper so that they work on
+N:   machines with or without systemd. Starting a service should be done via
+N:   invoke-rc.d if the service has a corresponding sysvinit script or
+N:   deb-systemd-invoke if it does not.
+N:   
+N:   If you are using debhelper, please use the systemd debhelper addon, which
+N:   is provided by debhelper (>= 9.20160709~).
+N: 
+N:   Please refer to https://wiki.debian.org/Teams/pkg-systemd/Packaging for
+N:   details.
+N: 
+N:   Visibility: warning
+N:   Show-Always: no
+N:   Check: maintainer-scripts/systemctl
+N: 
+N:
+I: siduction-btrfs: bash-term-in-posix-shell 'function gfxmode' [etc/grub.d/09_siduction-btrfs:235]
+N: 
+N:   This script is marked as running under /bin/sh, but it seems to use a
+N:   feature found in bash but not in the SUSv3 or POSIX shell specification.
+N:   
+N:   Some examples are:
+N:   
+N:   - == in a test, it should use = instead - read without a variable in the
+N:   argument - function to define a function - source instead of . - . command
+N:   args, passing arguments to commands via source is not supported -
+N:   {foo,bar} instead of foo bar - [[ test ]] instead of [ test ] (requires a
+N:   Korn shell) - type instead of which or command -v
+N: 
+N:   Visibility: info
+N:   Show-Always: no
+N:   Check: shell/non-posix/bash-centric
+N: 
+N:
+I: siduction-btrfs source: older-debian-watch-file-standard 3 [debian/watch]
+N: 
+N:   The version= line in the debian/watch file in this package declares an
+N:   older version. Please upgrade when you have a chance.
+N: 
+N:   Please refer to the uscan(1) manual page for details.
+N: 
+N:   Visibility: info
+N:   Show-Always: no
+N:   Check: debian/watch/standard
+N: 
+N:
+I: siduction-btrfs source: upstream-metadata-missing-bug-tracking [debian/upstream/metadata]
+N: 
+N:   The DEP 12 metadata file does not specify any upstream bug tracking
+N:   information (ie. the Bug-Database or Bug-Submit fields are missing).
+N:   
+N:   The upstream metadata can be found in the source package in the file
+N:   debian/upstream/metadata.
+N: 
+N:   Please refer to https://dep-team.pages.debian.net/deps/dep12/ for details.
+N: 
+N:   Visibility: info
+N:   Show-Always: no
+N:   Check: debian/upstream/metadata
+N: 
+N:
+I: siduction-btrfs source: upstream-metadata-missing-repository [debian/upstream/metadata]
+N: 
+N:   The DEP 12 metadata file does not specify the location of upstream's
+N:   version control repository (ie. the Repository and Repository-Browse
+N:   fields are missing).
+N:   
+N:   The upstream metadata can be found in the source package in the file
+N:   debian/upstream/metadata.
+N: 
+N:   Please refer to https://dep-team.pages.debian.net/deps/dep12/ for details.
+N: 
+N:   Visibility: info
+N:   Show-Always: no
+N:   Check: debian/upstream/metadata
+N: 
+Finished running lintian.
