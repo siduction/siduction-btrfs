@@ -1,5 +1,0 @@
-./09_siduction-btrfs
-./siduction_btrfs.path
-./siduction_btrfs.service
-./siduction_btrfs.timer
-./test-btrfs-default.sh

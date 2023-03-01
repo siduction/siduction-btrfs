@@ -1,0 +1,44 @@
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA512
+
+Format: 1.8
+Date: Wed, 01 Mar 2023 11:35:26 +0100
+Source: siduction-btrfs
+Architecture: source
+Version: 0.1.0-2
+Distribution: unstable
+Urgency: medium
+Maintainer: Axel Konrad <emma-konrad@web.de>
+Changed-By: Torsten Wohlfarth <towo@siduction.org>
+Changes:
+ siduction-btrfs (0.1.0-2) unstable; urgency=medium
+ .
+   [ Axel Konrad ]
+   * Move the / filesystem type test into test-btrfs-default.sh
+Checksums-Sha1:
+ e7f5496dbf44fc1f20da67ad4b45a78cd66339c3 1471 siduction-btrfs_0.1.0-2.dsc
+ 2ab252b724fb69eccca91283916eb9270d8886dc 5257 siduction-btrfs_0.1.0.orig.tar.gz
+ 387f93384a4c9b18b6c6511b491932327149c0e4 2740 siduction-btrfs_0.1.0-2.debian.tar.xz
+ ba81f205cc303b2e086dc1e0ed2eb38b4c27ead5 5696 siduction-btrfs_0.1.0-2_source.buildinfo
+Checksums-Sha256:
+ 35b3ff259dc0ab12a2c6e5e14c1e0d0a2ab408c24e681642d485fb2ab7106be9 1471 siduction-btrfs_0.1.0-2.dsc
+ bfa18f277b7497d9d03e22a1555075e41afb779efbc4d9081a60ac2a64aefcc0 5257 siduction-btrfs_0.1.0.orig.tar.gz
+ 12165665fa275b5c9e513299dda1eaca120d335d7b06274bb92145565bef2e3a 2740 siduction-btrfs_0.1.0-2.debian.tar.xz
+ 37f96ed20abbe59eff01338f44fd1962696fcb6e62917fec7814a6f63accb6a7 5696 siduction-btrfs_0.1.0-2_source.buildinfo
+Files:
+ 2a67538a7f5554d8ba7d0b0b490199e2 1471 utils optional siduction-btrfs_0.1.0-2.dsc
+ c9793d586611714faeab52624249cc1f 5257 utils optional siduction-btrfs_0.1.0.orig.tar.gz
+ c367551010f3fe580d54435c80d2e7d8 2740 utils optional siduction-btrfs_0.1.0-2.debian.tar.xz
+ 4b549d1176dfb94142223887037261ce 5696 utils optional siduction-btrfs_0.1.0-2_source.buildinfo
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCgAdFiEEZmaCFB/Qggbc1HeZP2pzfZRngjEFAmP/KugACgkQP2pzfZRn
+gjEQ3gf+MoQDipdjqodgP8wqp3CxNhVOrAL1W1BWTiBXdchnqDwUQpJmC4BmWXsG
+25cUqVrEVaxE5eiGS5anmK1FaG6DHqOnuzgkABQGEV/MhjLCcj83Io7R8tfO0wMW
+O4jjeIFqydNTUsIpwUfKg31/2Nwk3RdQPm3ZAHFSsD19+51ZcF8FtKfpjLbrPgh4
+JAuGjQzIV6IWmnmjXbmHqFiDqhAQl7lfuLJ8lH3nYKQo9U99Ec7nofhnSh6xflNp
+XZng/0E9xE9Qnt6+GLgd1SUtmnyqQflMSpYpS6ouXBJM13iFr7iin0hufHr4f8F/
+g44q+8XyRytrZTUf56X47LN3930+KQ==
+=BMYu
+-----END PGP SIGNATURE-----
