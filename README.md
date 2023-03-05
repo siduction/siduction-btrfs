@@ -30,7 +30,7 @@ We need testers for other hardware platforms.
 
 ## Known problems and bugs
 
-Currently unknown, but likely, are incorrect paths when used on platforms other than x86_64 and x686.
+Currently unknown, but possible, are incorrect paths when used on platforms other than x86_64 and x686.
 
 --------
 
@@ -60,4 +60,4 @@ Wir benötigen Tester für andere Hardware Plattformen.
 
 ## Bekannte Probleme und Fehler
 
-Derzeit nicht bekannt, aber wahrscheinlich, sind fehlerhafte Pfade bei Verwendung auf anderen Plattformen als x86_64 und x686.
+Derzeit nicht bekannt, aber möglich, sind fehlerhafte Pfade bei Verwendung auf anderen Plattformen als x86_64 und x686.
