@@ -9,11 +9,11 @@
 
 set -e
 
-# Test whether file system of "/" is btrfs.
-ROOTFSTYP=$( grep '[[:space:]]\+/[[:space:]]\+' /etc/fstab | awk '{ print $3 }' )
+## Test whether file system of "/" is btrfs.
+#ROOTFSTYP=$( grep '[[:space:]]\+/[[:space:]]\+' /etc/fstab | awk '{ print $3 }' )
 
-if [ "x$ROOTFSTYP" = "xbtrfs" ]; then
-    # If the file system is btrfs, then do the work.
+#if [ "x$ROOTFSTYP" = "xbtrfs" ]; then
+#    # If the file system is btrfs, then do the work.
     
     sleep 10
     
@@ -37,9 +37,9 @@ if [ "x$ROOTFSTYP" = "xbtrfs" ]; then
         echo "Start \"update-grub\""
         update-grub
     fi
-else
-    # No btrfs: Disable systemd units and we never see each other here again.
-    systemctl mask --now siduction_btrfs.timer siduction_btrfs.path
-fi
+#else
+#    # No btrfs: Disable systemd units and we never see each other here again.
+#    systemctl mask --now siduction_btrfs.timer siduction_btrfs.path
+#fi
 
 exit 0
