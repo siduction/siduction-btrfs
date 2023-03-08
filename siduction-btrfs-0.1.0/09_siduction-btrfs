@@ -38,7 +38,8 @@ if [ "x${GRUB_FS}" = "xbtrfs" ]; then
         dirname="${btrfs_default_path}/boot"
     fi
 else
-    systemctl mask --now siduction_btrfs.timer siduction_btrfs.path
+# If the root filesystem is NOT Btrfs.
+    exec $(systemctl mask --now siduction_btrfs.timer siduction_btrfs.path > /dev/null 2>&1)
     chmod -x /etc/grub.d/09_siduction-btrfs
     exit 0
 fi
