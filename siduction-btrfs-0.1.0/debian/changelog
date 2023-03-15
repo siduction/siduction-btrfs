@@ -1,3 +1,16 @@
+siduction-btrfs (0.1.0-6) unstable; urgency=medium
+
+  * check for masked services in postinst
+
+ -- Torsten Wohlfarth <towo@siduction.org>  Wed, 15 Mar 2023 21:01:02 +0100
+
+siduction-btrfs (0.1.0-5) unstable; urgency=medium
+
+  [Axel Konrad]
+  * add postrm
+
+ -- Torsten Wohlfarth <towo@siduction.org>  Tue, 14 Mar 2023 16:59:24 +0100
+
 siduction-btrfs (0.1.0-4) unstable; urgency=medium
 
   [Axel Konrad]

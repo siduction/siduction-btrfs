@@ -5,7 +5,9 @@
 
 set -e
 
-systemctl enable siduction_btrfs.timer siduction_btrfs.path
+if [ ! $( systemctl status siduction_btrfs.path | awk '/masked/{print $2}' 2>/dev/null) ]; then
+    systemctl enable siduction_btrfs.timer siduction_btrfs.path
+fi
 
 #DEBHELPER#
 
