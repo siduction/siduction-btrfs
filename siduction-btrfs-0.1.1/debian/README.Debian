@@ -1,0 +1,11 @@
+siduction-btrfs for Debian
+
+Improves the grub menu after a rollback using snapper or manual change of the
+Btrfs default subvolume.The default boot entry points to the new default
+subvolume with the kernels present.
+Adapted to the special requirements of siduction; a rolling relaese
+based on Debian SID.
+
+The functionality of grub-btrfs remains unaffected.
+
+ -- Axel Konrad <emma-konrad@web.de>  Sun, 26 Feb 2023 15:10:32 +0100

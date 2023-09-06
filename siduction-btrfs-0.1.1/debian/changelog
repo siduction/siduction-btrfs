@@ -1,0 +1,48 @@
+siduction-btrfs (0.1.1-1) unstable; urgency=medium
+
+  [Fabian Bermel]
+  * Fix quadratic algorithm for sorting menu items
+
+ -- Torsten Wohlfarth <towo@siduction.org>  Wed, 06 Sep 2023 09:20:13 +0200
+
+siduction-btrfs (0.1.0-6) unstable; urgency=medium
+
+  * check for masked services in postinst
+
+ -- Torsten Wohlfarth <towo@siduction.org>  Wed, 15 Mar 2023 21:01:02 +0100
+
+siduction-btrfs (0.1.0-5) unstable; urgency=medium
+
+  [Axel Konrad]
+  * add postrm
+
+ -- Torsten Wohlfarth <towo@siduction.org>  Tue, 14 Mar 2023 16:59:24 +0100
+
+siduction-btrfs (0.1.0-4) unstable; urgency=medium
+
+  [Axel Konrad]
+  * fixes
+
+ -- Torsten Wohlfarth <towo@siduction.org>  Wed, 08 Mar 2023 15:38:12 +0100
+
+siduction-btrfs (0.1.0-3) unstable; urgency=medium
+
+  [Axel Konrad]
+  * fix system services
+
+
+ -- Torsten Wohlfarth <towo@siduction.org>  Tue, 07 Mar 2023 22:48:45 +0100
+
+siduction-btrfs (0.1.0-2) unstable; urgency=medium
+
+  [ Axel Konrad ]
+  * Move the / filesystem type test into test-btrfs-default.sh
+
+ -- Torsten Wohlfarth <towo@siduction.org>  Wed, 01 Mar 2023 11:35:26 +0100
+
+siduction-btrfs (0.1.0-1) unstable; urgency=low
+
+  * Added test for root filesystem type
+  * Initial release.
+
+ -- Axel Konrad <emma-konrad@web.de>  Mon, 27 Feb 2023 14:35:42 +0100

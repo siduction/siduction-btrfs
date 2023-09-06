@@ -1,0 +1,9 @@
+# /usr/lib/systemd/system/siduction-btrfs.service
+[Unit]
+Description=Part of siduction-btrfs
+Description=Execute 'update-grub' if btrfs-default-subvolume changed.
+Documentation=https://github.com/siduction/grub-btrfs-rollback-settings
+
+[Service]
+Type=oneshot
+ExecStart=/usr/share/siduction/test-btrfs-default.sh

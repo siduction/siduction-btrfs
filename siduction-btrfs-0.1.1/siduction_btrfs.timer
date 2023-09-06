@@ -1,0 +1,12 @@
+# /usr/lib/systemd/system/siduction_btrfs.timer
+[Unit]
+Description=Part of siduction-btrfs
+Description=After booting, checks if btrfs-default-subvolume and config-grub last used subvolume match.
+Documentation=https://github.com/siduction/grub-btrfs-rollback-settings
+
+[Timer]
+OnBootSec=15
+
+[Install]
+WantedBy=timers.target
+
