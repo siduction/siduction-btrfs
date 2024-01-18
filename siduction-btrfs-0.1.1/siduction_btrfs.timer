@@ -2,7 +2,7 @@
 [Unit]
 Description=Part of siduction-btrfs
 Description=After booting, checks if btrfs-default-subvolume and config-grub last used subvolume match.
-Documentation=https://github.com/siduction/grub-btrfs-rollback-settings
+Documentation=https://github.com/siduction/siduction-btrfs
 
 [Timer]
 OnBootSec=15

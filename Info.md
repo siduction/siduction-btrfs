@@ -38,7 +38,9 @@ If the user decides to reset the btrfs default subvolume to "@", which should on
 
 **systemd units and the script 'test-btrfs-default'**
 
-The systemd units activate the script after every system boot and whenever a snapshot of **`/`** is taken. The script checks if the Btrfs default subvolume, the booted subvolume and the default menu entry are different. If this is the case, the `update-grub` command is executed.
+The systemd units activate the script after every system boot and whenever a snapshot of **`/`** is taken.  
+The script checks if the Btrfs default subvolume, the booted subvolume and the default menu entry are different. If this is the case, the `update-grub` command is executed.  
+After a rollback **and** the first boot to the rollback target, the script also executes the `grub-install` command.
 
 ### Events affecting the Grub menu
 
@@ -96,7 +98,9 @@ Sollte der Benutzer sich dazu entscheiden das Btrfs default Subvolumen auf "@" z
 
 **systemd Units und das Skript 'test-btrfs-default'**
 
-Die systemd Units aktivieren das Skript nach jedem Systemstart und immer dann, wenn ein Snapshot von **`/`** erstellt wurde. Das Skript prüft darauf hin ob sich das Btrfs Standard-, das gebootete Subvolumen und der Standard-Menüeintrag unterscheiden. Ist das der Fall, wird das Kommando `update-grub` ausgeführt.  
+Die systemd Units aktivieren das Skript nach jedem Systemstart und immer dann, wenn ein Snapshot von **`/`** erstellt wurde.  
+Das Skript prüft darauf hin ob sich das Btrfs Standard-, das gebootete Subvolumen und der Standard-Menüeintrag unterscheiden. Ist das der Fall, wird das Kommando `update-grub` ausgeführt.  
+Nach einem Rollback **und** dem erste Boot in das Rollbackziel, führt das Skript zusätzlich das Kommando `grub-install` aus.
 
 ### Ereignisse, die das Grub Menü betreffen
 

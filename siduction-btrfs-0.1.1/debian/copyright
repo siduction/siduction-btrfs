@@ -1,7 +1,7 @@
 Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
 Upstream-Name: siduction-btrfs
-Upstream-Contact: emma-konrad@web.de
-Source: https://github.com/siduction/grub-btrfs-rollback_settings
+Upstream-Contact: ak-li@siduction.org
+Source: https://github.com/siduction/siduction-btrfs
 
 Files:     debian/install
            siduction_btrfs.path

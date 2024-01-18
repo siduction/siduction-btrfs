@@ -2,7 +2,7 @@
 [Unit]
 Description=Part of siduction-btrfs
 Description=Execute 'update-grub' if btrfs-default-subvolume changed.
-Documentation=https://github.com/siduction/grub-btrfs-rollback-settings
+Documentation=https://github.com/siduction/siduction-btrfs
 
 [Service]
 Type=oneshot
