@@ -1,0 +1,41 @@
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA512
+
+Format: 1.8
+Date: Mon, 22 Jan 2024 20:23:16 +0100
+Source: siduction-btrfs
+Architecture: source
+Version: 0.1.2-1
+Distribution: unstable
+Urgency: medium
+Maintainer: Axel Konrad <ak-li@siduction.org>
+Changed-By: Torsten Wohlfarth <towo@siduction.org>
+Changes:
+ siduction-btrfs (0.1.2-1) unstable; urgency=medium
+ .
+     [Axel Konrad]
+   * various fixes
+Checksums-Sha1:
+ cf571762f3947ce55b6ab1468958eb25cf654e79 1171 siduction-btrfs_0.1.2-1.dsc
+ 0560b821e13061f21dec3c6171756b5b7a4f30b7 8869 siduction-btrfs_0.1.2-1.tar.gz
+ 96d03ea9a4977ad77b3450567b7b3bd7b87d3e42 5726 siduction-btrfs_0.1.2-1_source.buildinfo
+Checksums-Sha256:
+ caeb0c5c8744b6bb97c09c4d368381dea15b3fd81f2858966393525259ff60ce 1171 siduction-btrfs_0.1.2-1.dsc
+ f32c895b605788898619e496793875b4d88317278cfccc267a6d4c099691774b 8869 siduction-btrfs_0.1.2-1.tar.gz
+ a4e992f2386926b0df886244a094db3d14d94b0360704ee2de422d7e46e4d5f1 5726 siduction-btrfs_0.1.2-1_source.buildinfo
+Files:
+ 079adbf125891d96ed22091ceff0e8b1 1171 utils optional siduction-btrfs_0.1.2-1.dsc
+ 196047033bd98361a81c0f0ba257a0ef 8869 utils optional siduction-btrfs_0.1.2-1.tar.gz
+ 134cd2f6b8e5effdd75d27102129f81b 5726 utils optional siduction-btrfs_0.1.2-1_source.buildinfo
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCgAdFiEEZmaCFB/Qggbc1HeZP2pzfZRngjEFAmWuwN0ACgkQP2pzfZRn
+gjEPfwf+Mr4ff+9eyWSuq3/9JoNwEQR+wxXWaOyUyQJECAwhJWEHD3jZTSuUEFSN
+okndwGXYwZ36si5OWw2rwqML3ozit8mb9G/xswnH7so4II5dDriiKCgjl95yNheX
+1oPrHn6iMIM9MTcP0SPaUjej6ZDUs+BG7Cxs8GugDtYphCOHyB/4B5UlRm26bDgs
+VeNHAa5zVNDt47vTGu/witcLNN4OrhsolXVBzflUhELI3s5mVXT1fmD07KUMBe27
+hMUHKREujMJ8qx3KosNvryfiuPcnnERc3kJ1PHMSizC8z7SP0P15JVLSWId12zpl
+F+IWoXr8WxUTSH/y1xdRn2MaNwL7Wg==
+=zOg3
+-----END PGP SIGNATURE-----
