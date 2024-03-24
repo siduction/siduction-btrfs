@@ -6,9 +6,6 @@ The package **siduction-btrfs** improves the grub menu file "/boot/grub/**grub.c
 
 It does not replace the basic understanding of the function of Btrfs file system, its subvolume and snapshots.
 
-For this reason, an important note right at the beginning:  
-After a rollback followed by a reboot into the new Btrfs default subvolume, a `grub-install` is required. Otherwise, the reference to the previous default subvolume in Grub stage-1 remains and Grub loads the menu file from there.
-
 ### Involved components
 
 + Btrfs with subvolumes (With Btrfs, snapshots are also subvolumes, just with default contents).  
@@ -51,7 +48,7 @@ After a rollback **and** the first boot to the rollback target, the script also 
   *grub-btrfs* updates the submenu "siduction snapshots".  
   `update-grub` is executed. Then the default Grub menu entry boots into the rollback target.  
 + Reboot into rollback target  
-  `update-grub` is executed. The newly created grub menu file in the rollback target is different from the previously used menu. Grub stage-1 still points to the previous Btrfs default subvolume. If the state of the OS after the rollback is as desired, `grub-install` must be called manually. So Grub stage-1 points to the rollback target, which is now also the Btrfs default subvolume.  
+  `update-grub` and then `grub-install` are executed. Now Grub reads the menu file `grub.cfg` from the rollback target, which is now also the Btrfs default subvolume.  
 + *apt install/remove*  
   *snapper* triggers apt and creates a pre- and post-snapshot (default). Then *grub-btrfs* updates the "siduction snapshots" submenu.
 + *apt upgrade/install/remove* with kernel  
@@ -66,9 +63,6 @@ After a rollback **and** the first boot to the rollback target, the script also 
 Das Paket **siduction-btrfs** verbessert bei einem auf Btrfs installierten siduction die Grub Menüdatei "/boot/grub/**grub.cfg**".
 
 Es ersetzt nicht das grundlegende Verständnis der Funktion des Btrfs Dateisystems, seiner Subvolumen und Snapshots.
-
-Aus diesem Grund gleich zu Beginn ein wichtiger Hinweis:  
-Nach einem Rollback mit anschließendem Reboot in das neue Btrfs default Subvolumen ist ein `grub-install` notwendig. Sonst bleibt in Grub stage-1 der Verweis auf das vorherige default Subvolumen erhalten und Grub lädt von dort die Menüdatei.
 
 ### Beteiligten Komponenten
 
@@ -111,7 +105,7 @@ Nach einem Rollback **und** dem erste Boot in das Rollbackziel, führt das Skrip
   *grub-btrfs* aktualisiert das Untermenü "siduction snapshots"  
   `update-grub` wird ausgeführt. Dadurch bootet der Grub Standard-Menüeintrag in das Rollbackziel.
 + Neustart im das Rollback-Ziel  
-  `update-grub` wird ausgeführt. Die neu erstellte Grub-Menü-Datei im Rollback-Ziel unterscheidet sich von dem zuvor verwendeten Menü. Grub stage-1 verweist immer noch auf das vorherige Btrfs-Standard-Subvolumen. Ist der Zustand des OS nach dem Rollback so wie gewünscht, muss manuell `grub-install` aufgerufen werden. So verweist Grub stage-1 auf das Rollback-Ziel, das nun gleichzeitig das Btrfs default Subvolumen ist.  
+  `update-grub` und anschließend `grub-install` werden ausgeführt. Jetzt liest Grub die Menüdatei `grub.cfg` aus dem Rollback-Ziel, das nun gleichzeitig das Btrfs default Subvolumen ist.  
 + *apt install/remove*  
   *snapper* triggert apt und erstellt einen pre- und post-Snapshot (Standardeinstellung). Anschließend aktualisiert *grub-btrfs* das Untermenü "siduction snapshots".
 + *apt upgrade/install/remove* mit Kernel  
