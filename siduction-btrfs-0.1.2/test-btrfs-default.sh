@@ -11,6 +11,12 @@ set -e
 
 sleep 5
 
+# Check if Btrfs. Get default subvolume.
+if ! btrfs_default=$(btrfs subvolume get-default / 2>/dev/null); then
+    echo "No Btrfs found on /"
+    exit 0
+fi
+
 # Check filesystem write permission. Cancel if boot into
 # a read only subvolume (other than Btrfs default)
 if [ ! -w / ]; then
@@ -20,7 +26,7 @@ fi
 
 # Query the btrfs default subvolume, the booted subvolume, and the grub default menu entry.
 # 1) Subvolume, that is set to default in Btrfs
-btrfs_default=$(echo "$(btrfs subvolume get-default /)" | sed -E 's,[^@]*@?,@,')
+btrfs_default=$(echo "$btrfs_default" | sed -E 's,[^@]*@?,@,')
 
 # 2) Subvolume that was booted into.
 booted_subvol=$(btrfs inspect-internal subvolid-resolve $(btrfs inspect-internal rootid /) /)
@@ -41,7 +47,7 @@ if [ "x${btrfs_default}" = "x${booted_subvol}" ]; then
     # The grub standard boot entry differs.
     # State after booting into the rollback target first time.
         echo "Btrfs default subvolume and Grub default menu item differ."
-        echo "Start \"update-grub\" and \"grub-install\""
+        echo "Run \"update-grub\" and \"grub-install\""
         update-grub
         
     # Search for grub installation target.
@@ -73,7 +79,7 @@ else
     # We still have write permissions in the previous default
     # subvolume, in which we are currently located.
     echo "Btrfs default and booted subvolume differ." 
-    echo "Start \"update-grub\""
+    echo "Run \"update-grub\""
     update-grub
 fi
 
