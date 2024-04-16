@@ -27,27 +27,119 @@ fi
 # Query the btrfs default subvolume, the booted subvolume, and the grub default menu entry.
 # 1) Subvolume, that is set to default in Btrfs
 btrfs_default=$(echo "$btrfs_default" | sed -E 's,[^@]*@?,@,')
-echo "btrfs default: $btrfs_default"
 
 # 2) Subvolume that was booted into.
 booted_subvol=$(btrfs inspect-internal subvolid-resolve $(btrfs inspect-internal rootid /) /)
-echo "booted subvol: $booted_subvol"
 
 # 3) Subvolume of the grub default boot entry.
 grub_default_menu=$(grep -m 1 -o '/.*/boot/vmlinuz' /boot/grub/grub.cfg | sed 's,/\(.*\)/boot/vmlinuz,\1,')
-echo "grub default: $grub_default_menu"
 
 # Compare the query values and execute action if necessary.
 if [ "x${btrfs_default}" = "x${booted_subvol}" ]; then
     if [ "x${btrfs_default}" = "x${grub_default_menu}" ]; then
     # All three queries point to the same subvolume.
-        echo "Nothing to do"
-        exit 0
-    else
+    
+    # Now we search for apt description in snappers last entrys.
+        if snapper_last_post=$(snapper --no-headers --machine-readable csv list \
+          | tail -n 1 | grep ",apt," | grep ",post,") && \
+          snapper_last_pre=$(snapper --no-headers --machine-readable csv list \
+          | tail -n 2 | grep ",apt," | grep ",pre,"); then
+            # Snapper logged a complete apt action.
+            
+            # Search for matches in the apt log.
+            # Read in the last lines of apt history
+            touch /tmp/apt-hist-tac.log
+            tail /var/log/apt/history.log | cut -d " " -f -7 | tac > /tmp/apt-hist-tac.log
+            
+            # Extract the last apt action.
+            touch /tmp/apt-hist.log
+            while read line; do
+                if [ "x$line" = "x" ]; then
+                    rm /tmp/apt-hist-tac.log
+                    break
+                else
+                    echo "$line" >> /tmp/apt-hist.log
+                fi
+            done < /tmp/apt-hist-tac.log
+            
+            # If something goes wrong.
+            if [ -e /tmp/apt-hist-tac.log ]; then
+                rm /tmp/apt-hist-tac.log
+            fi
+
+            # Extract apt Start-Date, End-Date, Commandline, and package name.
+            apt_start=""
+            apt_end=""
+            apt_full_command=""
+            apt_package=""
+            
+            apt_start=$(grep "Start-Date" /tmp/apt-hist.log | sed 's![\(Start-Date:\): -]!!g')
+#            echo "apt Start:$apt_start"
+            
+            apt_end=$(grep "End-Date" /tmp/apt-hist.log | sed 's![\(End-Date:\): -]!!g')
+#            echo "apt End  :$apt_end"
+            
+            apt_full_command=$(grep "Commandline" /tmp/apt-hist.log)
+#            echo "Full Command:$apt_full_command"
+            
+            apt_package=$(sed -e 's!Commandline: apt\(-get\)\?!!' -e 's,\(.*\),\1 ,' \
+                        -e 's,^ [[:alpha:]-]\+ \?, ,' -e 's,--[[:alpha:]]\+ \?,,g' \
+                        -e 's,-[[:alpha:]] \+,,g' <<< "$apt_full_command" | \
+                        awk '{print $1}' | sed 's,\([[:alnum:]]\+\).*,\1,')
+            
+            if [ -e /tmp/apt-hist.log ]; then
+                rm /tmp/apt-hist.log
+            fi
+            
+            # Prepare the first part of the snapper output.
+            if grep -q -P "Commandline: apt-get remove --purge --yes linux-" <<< "$apt_full_command"; then
+                apt_package=$( grep -o "image[[:print:]]\+[a-z]" <<< "$apt_full_command" | grep -o "[.0-9]\+-[0-9]")
+                apt_command="kernel-rm"
+            elif grep -q -P "Commandline:.*autoremove" <<< "$apt_full_command"; then
+                apt_command="auto-rm"
+            elif grep -q -P "Commandline:.*purge" <<< "$apt_full_command"; then
+                apt_command="purge"
+            elif grep -q -P "Commandline:.*remove" <<< "$apt_full_command"; then
+                apt_command="remove"
+            elif grep -q -P "Commandline:.*install" <<< "$apt_full_command"; then
+                apt_command="install"
+            elif grep -q -P "Commandline:.*-upgrade" <<< "$apt_full_command"; then
+                apt_command="DU"
+            elif grep -q -P "Commandline:.*upgrade" <<< "$apt_full_command"; then
+                apt_command="upgrade"
+            fi
+#            echo "Command:$apt_command"
+#            echo "Package:$apt_package"
+
+            # The required variables are filled with the values from snapper.
+            pre_num=$(echo "$snapper_last_pre" | cut -d "," -f 3)
+            pre_date=$(echo "$snapper_last_pre" | cut -d "," -f 8 | sed 's![: -]!!g')
+#            echo "Nr.:$pre_num, Date:$pre_date"
+            
+            post_num=$(echo "$snapper_last_post" | cut -d "," -f 3)
+            post_date=$(echo "$snapper_last_post" | cut -d "," -f 8 | sed 's![: -]!!g')
+#            echo "Nr.:$post_num, Date:$post_date"
+            
+            # compare the timestamps.
+            # The apt times must be within those of snapper.
+            echo "Change snapper's description of snapshots $pre_num and $post_num."
+            if [ $pre_date -le $apt_start ] && [ $post_date -ge $apt_end ]; then
+                snapper modify -d "$apt_command $apt_package" "$pre_num" "$post_num"
+            fi
+            
+        else
+        # No complete apt entry in snapper
+        # and the default subvolume is unchanged.
+            exit 0
+        fi
+   else
     
     # Btrfs default subvolume and booted subvolume are the same.
     # The grub standard boot entry differs.
     # State after booting into the rollback target first time.
+        echo "btrfs default: $btrfs_default"
+        echo "booted subvol: $booted_subvol"
+        echo "grub default: $grub_default_menu"
         echo "Btrfs default subvolume and Grub default menu item differ."
         echo "Run \"update-grub\" and \"grub-install\""
         update-grub
@@ -81,6 +173,9 @@ else
     # We still have write permissions in the new
     # default subvolume, and in the previous default
     # subvolume, in which we are currently located
+    echo "btrfs default: $btrfs_default"
+    echo "booted subvol: $booted_subvol"
+    echo "grub default: $grub_default_menu"
     echo "Btrfs default and booted subvolume differ." 
     echo "Run \"update-grub\""
     update-grub
@@ -98,7 +193,7 @@ else
     oldbak=$(find "$target_path"/etc/* -maxdepth 0 -regex ".*fstab_btrfs_.*" 2>/dev/null)
     if [ "$oldbak" ]; then
         echo "Remove old fstab backup."
-	rm $(echo "$oldbak")
+....rm $(echo "$oldbak")
     fi
 
     newbak="fstab_btrfs_$(date +%F_%H%M.bak)"
