@@ -55,17 +55,17 @@ if [ "x${btrfs_default}" = "x${booted_subvol}" ]; then
             
             # Search for matches in the apt log.
             # Read in the last lines of apt history
-            tail /var/log/apt/history.log | cut -d " " -f -7 | tac > TEMP1
+            tail /var/log/apt/history.log | cut -d " " -f -7 | tac > "$TEMP1"
             
             # Extract the last apt action.
             while read line; do
                 if [ "x$line" = "x" ]; then
-                    rm TEMP1
+                    rm "${TEMP1}"
                     break
                 else
-                    echo "$line" >> TEMP2
+                    echo "$line" >> "$TEMP2"
                 fi
-            done < TEMP1
+            done < "$TEMP1"
             
             
             # Extract apt Start-Date, End-Date, Commandline, and package name.
@@ -74,11 +74,11 @@ if [ "x${btrfs_default}" = "x${booted_subvol}" ]; then
             apt_full_command=""
             apt_package=""
             
-            apt_start=$(grep "Start-Date" TEMP2 | sed 's![\(Start-Date:\): -]!!g')
+            apt_start=$(grep "Start-Date" "$TEMP2" | sed 's![\(Start-Date:\): -]!!g')
             
-            apt_end=$(grep "End-Date" TEMP2 | sed 's![\(End-Date:\): -]!!g')
+            apt_end=$(grep "End-Date" "$TEMP2" | sed 's![\(End-Date:\): -]!!g')
             
-            apt_full_command=$(grep "Commandline" TEMP2)
+            apt_full_command=$(grep "Commandline" "$TEMP2")
             
             apt_package=$(sed -e 's!Commandline: apt\(-get\)\?\(.*\)$!\2 !' \
                         -e 's,^ [[:alpha:]-]\+ \?, ,' -e 's,--[[:alpha:]]\+ \?,,g' \
