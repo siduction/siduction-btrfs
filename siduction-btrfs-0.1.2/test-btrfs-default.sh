@@ -6,8 +6,15 @@
 # After booting or new snapshot, checks if Btrfs default subvolume,
 # booted subvolume, and Grub default menu item match.
 # Create new /boot/grub/grub.cfg if not.
+# Run 'grub-install' after first boot into rollback target.
+# Customize description in 'snapper list' for apt actions.
 
 set -e
+
+TEMP1=`mktemp /tmp/test-btrfs.XXXXXXXXXXXX`  || exit 1
+TEMP2=`mktemp /tmp/test-btrfs.XXXXXXXXXXXX`  || exit 1
+
+trap "rm -f $TEMP1 $TEMP2 2>/dev/null || true" EXIT HUP INT QUIT TERM
 
 sleep 5
 
@@ -48,52 +55,42 @@ if [ "x${btrfs_default}" = "x${booted_subvol}" ]; then
             
             # Search for matches in the apt log.
             # Read in the last lines of apt history
-            touch /tmp/apt-hist-tac.log
-            tail /var/log/apt/history.log | cut -d " " -f -7 | tac > /tmp/apt-hist-tac.log
+            tail /var/log/apt/history.log | cut -d " " -f -7 | tac > TEMP1
             
             # Extract the last apt action.
-            touch /tmp/apt-hist.log
             while read line; do
                 if [ "x$line" = "x" ]; then
-                    rm /tmp/apt-hist-tac.log
+                    rm TEMP1
                     break
                 else
-                    echo "$line" >> /tmp/apt-hist.log
+                    echo "$line" >> TEMP2
                 fi
-            done < /tmp/apt-hist-tac.log
+            done < TEMP1
             
-            # If something goes wrong.
-            if [ -e /tmp/apt-hist-tac.log ]; then
-                rm /tmp/apt-hist-tac.log
-            fi
-
+            
             # Extract apt Start-Date, End-Date, Commandline, and package name.
             apt_start=""
             apt_end=""
             apt_full_command=""
             apt_package=""
             
-            apt_start=$(grep "Start-Date" /tmp/apt-hist.log | sed 's![\(Start-Date:\): -]!!g')
-#            echo "apt Start:$apt_start"
+            apt_start=$(grep "Start-Date" TEMP2 | sed 's![\(Start-Date:\): -]!!g')
             
-            apt_end=$(grep "End-Date" /tmp/apt-hist.log | sed 's![\(End-Date:\): -]!!g')
-#            echo "apt End  :$apt_end"
+            apt_end=$(grep "End-Date" TEMP2 | sed 's![\(End-Date:\): -]!!g')
             
-            apt_full_command=$(grep "Commandline" /tmp/apt-hist.log)
-#            echo "Full Command:$apt_full_command"
+            apt_full_command=$(grep "Commandline" TEMP2)
             
-            apt_package=$(sed -e 's!Commandline: apt\(-get\)\?!!' -e 's,\(.*\),\1 ,' \
+            apt_package=$(sed -e 's!Commandline: apt\(-get\)\?\(.*\)$!\2 !' \
                         -e 's,^ [[:alpha:]-]\+ \?, ,' -e 's,--[[:alpha:]]\+ \?,,g' \
                         -e 's,-[[:alpha:]] \+,,g' <<< "$apt_full_command" | \
                         awk '{print $1}' | sed 's,\([[:alnum:]]\+\).*,\1,')
-            
-            if [ -e /tmp/apt-hist.log ]; then
-                rm /tmp/apt-hist.log
-            fi
+                        
+            rm "${TEMP2}"
             
             # Prepare the first part of the snapper output.
             if grep -q -P "Commandline: apt-get remove --purge --yes linux-" <<< "$apt_full_command"; then
-                apt_package=$( grep -o "image[[:print:]]\+[a-z]" <<< "$apt_full_command" | grep -o "[.0-9]\+-[0-9]")
+                apt_package=$( grep -o "image[[:print:]]\+[a-z]" <<< "$apt_full_command" \
+                | grep -o "[.0-9]\+-[0-9]")
                 apt_command="kernel-rm"
             elif grep -q -P "Commandline:.*autoremove" <<< "$apt_full_command"; then
                 apt_command="auto-rm"
@@ -108,17 +105,13 @@ if [ "x${btrfs_default}" = "x${booted_subvol}" ]; then
             elif grep -q -P "Commandline:.*upgrade" <<< "$apt_full_command"; then
                 apt_command="upgrade"
             fi
-#            echo "Command:$apt_command"
-#            echo "Package:$apt_package"
 
             # The required variables are filled with the values from snapper.
             pre_num=$(echo "$snapper_last_pre" | cut -d "," -f 3)
             pre_date=$(echo "$snapper_last_pre" | cut -d "," -f 8 | sed 's![: -]!!g')
-#            echo "Nr.:$pre_num, Date:$pre_date"
             
             post_num=$(echo "$snapper_last_post" | cut -d "," -f 3)
             post_date=$(echo "$snapper_last_post" | cut -d "," -f 8 | sed 's![: -]!!g')
-#            echo "Nr.:$post_num, Date:$post_date"
             
             # compare the timestamps.
             # The apt times must be within those of snapper.
@@ -193,7 +186,7 @@ else
     oldbak=$(find "$target_path"/etc/* -maxdepth 0 -regex ".*fstab_btrfs_.*" 2>/dev/null)
     if [ "$oldbak" ]; then
         echo "Remove old fstab backup."
-....rm $(echo "$oldbak")
+        rm "${oldbak}"
     fi
 
     newbak="fstab_btrfs_$(date +%F_%H%M.bak)"
