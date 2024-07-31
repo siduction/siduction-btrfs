@@ -1,0 +1,9 @@
+# /usr/lib/systemd/system/siduction_btrfs.service
+[Unit]
+Description=Part of siduction-btrfs
+Description=Update bootmenu if btrfs-default-subvolume changed.
+Documentation=https://github.com/siduction/siduction-btrfs
+
+[Service]
+Type=oneshot
+ExecStart=/usr/share/siduction-btrfs/test-btrfs-default.sh

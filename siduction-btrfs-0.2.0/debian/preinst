@@ -1,0 +1,56 @@
+#!/usr/bin/bash
+#
+# preinst script for #PACKAGE#
+#
+
+set -e
+
+. /etc/default/distro 
+
+fill_token () {
+cat << EOF >> /etc/os-release
+NAME="$FLL_DISTRO_NAME"
+VERSION_CODENAME=$FLL_DISTRO_CODENAME_SAFE
+VERSION="$name_firstup"
+VARIANT="$flav_upper"
+VARIANT_ID=$FLL_FLAVOUR
+ID=$FLL_DISTRO_NAME
+ID_LIKE=debian
+HOME_URL="https://siduction.org"
+SUPPORT_URL="https://forum.siduction.org"
+EOF
+}
+
+
+name_firstup=$(echo $FLL_DISTRO_CODENAME_SAFE | sed -e 's/\(.\)/\u\1/')
+flav_upper=$(echo $FLL_FLAVOUR | tr '[:lower:]' '[:upper:]')
+
+
+if [ "X$(findmnt -n -o FSTYPE /)" = "Xbtrfs" ]; then
+
+	btrfs_default=$(btrfs subvolume get-default / 2>/dev/null)
+	if grep -q '/' <<< "$btrfs_default"; then
+		default_nr=$(cut -d '/' -f 2 <<< "$btrfs_default")
+	else
+		default_nr="@"
+	fi
+
+	if [ -h /etc/kernel/entry-token ]; then
+		rm /etc/kernel/entry-token
+	fi
+	echo "$FLL_DISTRO_NAME-$FLL_FLAVOUR-snapshot-$default_nr"  > /etc/kernel/entry-token
+
+	echo "PRETTY_NAME=\"$FLL_DISTRO_NAME $name_firstup $flav_upper, snapshot $default_nr\"" \
+		> /etc/os-release
+	fill_token
+	
+else
+	echo "PRETTY_NAME=\"$FLL_DISTRO_NAME $name_firstup $flav_upper\"" \
+		> /etc/os-release
+	fill_token
+fi
+
+
+#DEBHELPER#
+
+exit 0

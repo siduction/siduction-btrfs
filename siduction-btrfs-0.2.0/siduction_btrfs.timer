@@ -1,0 +1,12 @@
+# /usr/lib/systemd/system/siduction_btrfs.timer
+[Unit]
+Description=Part of siduction-btrfs
+Description=After booting, checks if btrfs-default-subvolume and booted subvolume match.
+Documentation=https://github.com/siduction/siduction-btrfs
+
+[Timer]
+OnBootSec=15
+
+[Install]
+WantedBy=timers.target
+

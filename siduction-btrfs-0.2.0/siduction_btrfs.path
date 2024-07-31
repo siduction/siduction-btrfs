@@ -1,0 +1,12 @@
+# /usr/lib/systemd/system/siduction_btrfs.path
+[Unit]
+Description=Part of siduction-btrfs
+Description=Monitors changes of snapshot directory
+Documentation=https://github.com/siduction/siduction-btrfs
+After=siduction_btrfs.service
+
+[Path]
+PathChanged=/.snapshots/
+
+[Install]
+WantedBy=multi-user.target

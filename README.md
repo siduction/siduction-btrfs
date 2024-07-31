@@ -1,6 +1,6 @@
-# grub-btrfs-rollback_settings
-Btrfs file system - improved handling of rollback by Grub.  
-Grub menu is incorrect after a rollback.  
+# btrfs-boot-menu-settings
+Btrfs file system - GRUB and systemd-boot  
+Optimizes the boot menu and the description in Snapper
 
 --------
 
@@ -8,29 +8,27 @@ Grub menu is incorrect after a rollback.
 
 ## Description
 
-Improves the grub menu after a rollback using snapper or manual change of the Btrfs default subvolume.  
+Improves the menu after a rollback using snapper or manual change of the Btrfs default subvolume.  
 The default boot entry points to the new default subvolume with the kernels present.
 
 The functionality of [grub-btrfs](https://github.com/Antynea/grub-btrfs) remains unaffected.
 
 This project may be of interest for other debin based OS.
 
-## Issues with 10_linux that have been worked on:
-
+**Issues with GRUB that have been worked on:**  
 + The default boot entry always points to the "/@" subvolume using "rootflags=".  
 + For kernel and initrd, the subvolume that was booted into is always used, not the Btrfs default subvolume.  
 + The boot target is not clear from the title.
 
-## Support / Cooperation
+**Issues with systemd-boot that have been worked on:**  
++ After a rollback, systemd-boot does not create any menu entries for the rollback target.  
++ The default boot target also remains unchanged.  
++ If r/w snapshots are deleted, the corresponding entries remain in the boot menu.
 
-The file was created and tested on an x86_64 system.  
-We need testers for other hardware platforms.
+**Issues with description of apt actions in snapper:**  
++ snapper always only displays 'APT' in the description of the snapshots. Regardless of which apt action was executed.
 
-**Be sure to read the Info.md file before testing.**
-
-## Known problems and bugs
-
-Currently unknown, but possible, are incorrect paths when used on platforms other than x86_64 and x686.
+Be sure to read the Info.md file before testing.
 
 --------
 
@@ -45,19 +43,17 @@ Die Funktionalität von [grub-btrfs](https://github.com/Antynea/grub-btrfs) blei
 
 Dieses Projekt kann für andere Debin basierte OS von Interesse sein.
 
-## Probleme mit 10_linux, die bearbeitet wurden:
-
+**Probleme mit GRUB, die bearbeitet wurden:**
 + Der Standard Booteintrag zeigt mittels "rootflags=" immer auf das "/@" Subvolumen.  
 + Für Kernel und initrd wird immer das Subvolumen verwendet, in das gebootet wurde, nicht das Btrfs default Subvolumen.  
 + Aus dem Titel geht das Bootziel nicht hervor.
 
-## Unterstützung / Mitarbeit
+**Probleme mit systemd-boot, die bearbeitet wurden:**
++ Nach einem Rollback erstellt systemd-boot keine Menüeinträge für das Rollbackziel.  
++ Auch das Standard Bootziel bleibt unverändert.  
++ Werden r/w snapshots gelöscht, verbleiben die korrespondierenden Einträge im Bootmenü.
 
-Die Datei wurde auf einem x86_64 System erstellt und getestet.  
-Wir benötigen Tester für andere Hardware Plattformen.
+**Probleme mit Beschreibung von apt-Aktionen in snapper:**
++ snapper gibt in der Beschreibung der Snapshots immer 'APT' aus. Gleichgültig, welche apt-Aktion ausgeführt wurde.
 
-**Vor dem Test bitte unbedingt die Datei Info.md lesen.**
-
-## Bekannte Probleme und Fehler
-
-Derzeit nicht bekannt, aber möglich, sind fehlerhafte Pfade bei Verwendung auf anderen Plattformen als x86_64 und x686.
+Vor dem Test bitte unbedingt die Datei Info.md lesen.
