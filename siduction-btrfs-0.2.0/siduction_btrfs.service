@@ -6,4 +6,4 @@ Documentation=https://github.com/siduction/siduction-btrfs
 
 [Service]
 Type=oneshot
-ExecStart=/usr/share/siduction-btrfs/test-btrfs-default.sh
+ExecStart=/usr/share/siduction/test-btrfs-default.sh
