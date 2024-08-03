@@ -22,6 +22,10 @@ EOF
 }
 
 
+if [ -h /etc/os-release ]; then
+	rm /etc/os-release
+fi
+
 name_firstup=$(echo $FLL_DISTRO_CODENAME_SAFE | sed -e 's/\(.\)/\u\1/')
 flav_upper=$(echo $FLL_FLAVOUR | tr '[:lower:]' '[:upper:]')
 
@@ -39,7 +43,7 @@ if [ "X$(findmnt -n -o FSTYPE /)" = "Xbtrfs" ]; then
 		rm /etc/kernel/entry-token
 	fi
 	echo "$FLL_DISTRO_NAME-$FLL_FLAVOUR-snapshot-$default_nr"  > /etc/kernel/entry-token
-
+	
 	echo "PRETTY_NAME=\"$FLL_DISTRO_NAME $name_firstup $flav_upper, snapshot $default_nr\"" \
 		> /etc/os-release
 	fill_token
