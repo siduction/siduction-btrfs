@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# Name: /usr/share/siduction-btrfs/test-btrfs-default.sh
+# Name: /usr/share/siduction/test-btrfs-default.sh
 # Part of siduction-btrfs
 # Called by /usr/lib/systemd/system/siduction_btrfs.service
 # Checks after booting or a new snapshot whether a Btrfs is present
@@ -14,6 +14,8 @@
 set -e
 
 export TERM="xterm-256color"
+
+. /etc/default/distro
 
 # Wait 2 seconds.
 # If a rollback starts, it is safer to wait for the second snapshot.
@@ -33,9 +35,56 @@ if [ ! -w / ]; then
 fi
 
 
+# Query the btrfs default subvolume and the booted subvolume.
+# Declare required variables.
+#
+# Subvolume, that is set to default in Btrfs
+if grep -q "@" <<< "$btrfs_default"; then
+    btrfs_default=$(sed -E 's|[^@]*@|@|' <<< "$btrfs_default")
+    default_nr=$(cut -d '/' -f 2 <<< "$btrfs_default")
+    key=$((10000 - "$default_nr")) # $key is only required in systemd-boot.
+else
+    btrfs_default="@"
+    default_nr="@"
+    key="10000" # $key is only required in systemd-boot.
+fi
+export btrfs_default
+
+
+# Subvolume that was booted into.
+booted_subvol=$(btrfs inspect-internal subvolid-resolve $(btrfs inspect-internal rootid /) /)
+if grep -q '/' <<< "$booted_subvol"; then
+    booted_nr=$(cut -d '/' -f 2 <<< "$booted_subvol")
+else
+    booted_nr="@"
+fi
+
+
+# The default installation uses GRUB.
+# The files 'os-release' and 'entry-token' are used by systemd-boot.
+# We check and complete their contents to increase compatibility with systemd.
+
+# File 'os-release' does not contain a "snapshot" extension during installation.
+if ! grep -q ', snapshot ' /etc/os-release; then
+    sed -i 's!\(PRETTY_NAME.*\)"$!\1, snapshot '"$booted_nr"'"!'  /etc/os-release
+fi
+
+# File 'entry-token' is only required by systemd-boot.
+# We check the file and its content.
+if [ -f /etc/kernel/entry-token ]; then
+    if ! grep -q 'snapshot-' /etc/kernel/entry-token; then
+        echo "$FLL_DISTRO_NAME-$FLL_FLAVOUR-snapshot-$booted_nr"  > /etc/kernel/entry-token
+    fi
+elif [ -h /etc/kernel/entry-token ]; then
+    rm /etc/kernel/entry-token
+    echo "$FLL_DISTRO_NAME-$FLL_FLAVOUR-snapshot-$booted_nr"  > /etc/kernel/entry-token
+else
+    echo "$FLL_DISTRO_NAME-$FLL_FLAVOUR-snapshot-$booted_nr"  > /etc/kernel/entry-token
+fi
+
+
 ###################################
 ######### Begin funktions #########
-###################################
 
 find_package () {
 # Search for the first package and the total number of packages
@@ -66,7 +115,7 @@ fi
 }
 
 
-snapper_descripttion () {
+snapper_description () {
 # The btrfs default subvolume, the booted subvolume, and the
 # default menu entry (only grub) point to the same subvolume.
 # The new snapshot maybe based on an apt action.
@@ -198,7 +247,6 @@ else
 fi
 }
 
-###################################
 ########## End funktions ##########
 ###################################
 
@@ -209,33 +257,7 @@ fi
 # Call the appropriate function.
 # If neither of the two boot managers is found, output an error message.
 
-# 1) Subvolume, that is set to default in Btrfs
-if ! grep -q "@" <<< ${btrfs_default}; then
-    btrfs_default="@"
-else
-    btrfs_default=$(sed -E 's|[^@]*@|@|' <<< ${btrfs_default})
-fi
-export btrfs_default
-
-
-if grep -q '/' <<< "$btrfs_default"; then
-	default_nr=$(cut -d '/' -f 2 <<< "$btrfs_default")
-	key=$((10000 - "$default_nr"))
-else
-	default_nr="@"
-	key="10000"
-# $key is only required in btrfs-sdboot-menu.sh.
-fi
-
-# 2) Subvolume that was booted into.
-booted_subvol=$(btrfs inspect-internal subvolid-resolve $(btrfs inspect-internal rootid /) /)
-if grep -q '/' <<< "$booted_subvol"; then
-	booted_nr=$(cut -d '/' -f 2 <<< "$booted_subvol")
-else
-	booted_nr="@"
-fi
-
-# 3) Grub default boot entry or whether systemd-boot is installed.
+# Grub default boot entry or whether systemd-boot is installed.
 if [ -e /boot/grub/grub.cfg ] && [ -w /boot/grub/grub.cfg ]; then
     grub_default_menu=$(grep -m 1 -o '/.*/boot/vmlinuz' /boot/grub/grub.cfg | \
     sed 's,/\(.*\)/boot/vmlinuz,\1,')
@@ -278,7 +300,7 @@ if [ -e /boot/grub/grub.cfg ] && [ -w /boot/grub/grub.cfg ]; then
         else
         # All three queries point to the same subvolume.
         # No rollback done.
-            snapper_descripttion
+            snapper_description
         fi
     else
         
@@ -472,10 +494,10 @@ EOF
         exit 0
         fi
     else
-        snapper_descripttion
+        snapper_description
     fi
 else
-    snapper_descripttion
+    snapper_description
     echo "Neither Grub nor systemd-boot found."
 fi
 exit 0
