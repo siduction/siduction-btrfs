@@ -7,7 +7,7 @@ set -e
 
 # reanable 10_linux on btrfs / file systems
 
-if [ ! -x /etc/grub.d/10_linux ]; then
+if [ -e /etc/grub.d/10_linux ] && [ ! -x /etc/grub.d/10_linux ]; then
     chmod 755 /etc/grub.d/10_linux
 fi
 
