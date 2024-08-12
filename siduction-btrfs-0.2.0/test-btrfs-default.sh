@@ -63,25 +63,34 @@ fi
 # The default installation uses GRUB.
 # The files 'os-release' and 'entry-token' are used by systemd-boot.
 # We check and complete their contents to increase compatibility with systemd.
-
-# File 'os-release' does not contain a "snapshot" extension during installation.
-if ! grep -q ', snapshot ' /etc/os-release; then
-    sed -i 's!\(PRETTY_NAME.*\)"$!\1, snapshot '"$booted_nr"'"!'  /etc/os-release
+# After installation or an upgrade, this section is only executed once.
+# Afterwards it is removed from the script.
+if [ -h /etc/os-release ]; then
+    rm /etc/os-release
 fi
 
-# File 'entry-token' is only required by systemd-boot.
-# We check the file and its content.
-if [ -f /etc/kernel/entry-token ]; then
-    if ! grep -q 'snapshot-' /etc/kernel/entry-token; then
-        echo "$FLL_DISTRO_NAME-$FLL_FLAVOUR-snapshot-$booted_nr"  > /etc/kernel/entry-token
-    fi
-elif [ -h /etc/kernel/entry-token ]; then
+name_firstup=$(echo $FLL_DISTRO_CODENAME_SAFE | sed -e 's/\(.\)/\u\1/')
+flav_upper=$(echo $FLL_FLAVOUR | tr '[:lower:]' '[:upper:]')
+
+cat << EOF >> /etc/os-release
+PRETTY_NAME="$FLL_DISTRO_NAME $name_firstup $flav_upper, snapshot $booted_nr"
+NAME="$FLL_DISTRO_NAME"
+VERSION_CODENAME=$FLL_DISTRO_CODENAME_SAFE
+VERSION="$name_firstup"
+VARIANT="$flav_upper"
+VARIANT_ID=$FLL_FLAVOUR
+ID=$FLL_DISTRO_NAME
+ID_LIKE=debian
+HOME_URL="https://siduction.org"
+SUPPORT_URL="https://forum.siduction.org"
+EOF
+
+if [ -h /etc/kernel/entry-token ]; then
     rm /etc/kernel/entry-token
-    echo "$FLL_DISTRO_NAME-$FLL_FLAVOUR-snapshot-$booted_nr"  > /etc/kernel/entry-token
-else
-    echo "$FLL_DISTRO_NAME-$FLL_FLAVOUR-snapshot-$booted_nr"  > /etc/kernel/entry-token
 fi
 
+echo "$FLL_DISTRO_NAME-$FLL_FLAVOUR-snapshot-$booted_nr"  > /etc/kernel/entry-token
+sed -i '62,93d' /usr/share/siduction/test-btrfs-default.sh
 
 ###################################
 ######### Begin funktions #########
