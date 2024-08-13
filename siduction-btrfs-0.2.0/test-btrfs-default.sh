@@ -72,7 +72,7 @@ fi
 name_firstup=$(echo $FLL_DISTRO_CODENAME_SAFE | sed -e 's/\(.\)/\u\1/')
 flav_upper=$(echo $FLL_FLAVOUR | tr '[:lower:]' '[:upper:]')
 
-cat << EOF >> /etc/os-release
+cat << EOF > /etc/os-release
 PRETTY_NAME="$FLL_DISTRO_NAME $name_firstup $flav_upper, snapshot $booted_nr"
 NAME="$FLL_DISTRO_NAME"
 VERSION_CODENAME=$FLL_DISTRO_CODENAME_SAFE
