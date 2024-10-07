@@ -1,0 +1,38 @@
+#!/bin/bash
+#
+# Name: /usr/lib/kernel/install.d/91-siduction-entry-key.install
+# Part of siduction-btrfs
+# Change the sort key of systemd-boot loader entries.
+#
+
+set -e
+
+entry_path="${3:?}"
+
+. /etc/os-release
+
+# Search for the installation directory of systemd-boot.
+for sd_boot_dir in "/boot/efi" "/boot" "/efi"; do
+	if findmnt "$sd_boot_dir" &> /dev/null; then
+		menu_dir="$sd_boot_dir/loader/entries/"
+		break
+	fi
+done
+
+# Compose the entry name.
+entry_name=$(sed -e s'!'"$sd_boot_dir/"'!!' -e s'!/!-!' <<< "$entry_path")
+entry_name="$menu_dir$entry_name.conf"
+
+# Create the key.
+sn_nr=$(grep -o "shot-[0-9@]\+" <<< $entry_path | sed s'!shot-!!')
+
+if [ "X$sn_nr" = "X@" ]; then
+	key="10000"
+else
+	key=$((10000 - "$sn_nr"))
+fi
+
+# Change the sort key.
+sed -i s'!\(sort-key[ ]\+\).*!\1'"$VARIANT_ID-$key"'!' "$entry_name"
+
+exit 0

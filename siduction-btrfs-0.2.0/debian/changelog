@@ -1,3 +1,10 @@
+siduction-btrfs (0.2.0-6) unstable; urgency=medium
+
+    [Axel Konrad]
+  * Improves the sort-key of systemd-boot boot entries when installing kernels.
+
+ -- Torsten Wohlfarth <towo@siduction.org>
+
 siduction-btrfs (0.2.0) unstable; urgency=medium
 
     [Axel Konrad]

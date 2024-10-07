@@ -8,15 +8,16 @@ Files:     debian/install
            siduction_btrfs.service
            siduction_btrfs.timer
            test-btrfs-default.sh
+           91-siduction-entry-key.install
            debian/*
-Copyright: 2006-2010 Free Software Foundation, Inc.
+Copyright: 2006-2024 Free Software Foundation, Inc.
 License:   GPL-3.0+
  .
  On Debian systems, the complete text of the GNU General Public License
  Version 3 can be found in `/usr/share/common-licenses/GPL-3'.
 
 Files:     09_siduction-btrfs
-Copyright: 2006-2010 Free Software Foundation, Inc.
+Copyright: 2006-2024 Free Software Foundation, Inc.
 License:   GPL-3.0+
  GRUB is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
