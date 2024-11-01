@@ -1,0 +1,12 @@
+# /usr/lib/systemd/system/siduction_btrfs.service
+[Unit]
+Description=Part of siduction-btrfs
+Description=Update GRUB menu title.
+Documentation=https://github.com/siduction/siduction-btrfs
+Before=siduction_btrfs.path
+ConditionPathExists=/boot/grub/grub.cfg
+ConditionPathExists=/usr/share/siduction/btrfs
+
+[Service]
+Type=oneshot
+ExecStart=/usr/share/siduction/grub-menu-title.sh

@@ -4,56 +4,62 @@ Optimizes the boot menu and the description in Snapper
 
 --------
 
-# EN
+## EN
 
-## Description
+### Description
 
-Improves the menu after a rollback using snapper or manual change of the Btrfs default subvolume.  
-The default boot entry points to the new default subvolume with the kernels present.
+The standard boot entry boots into the rollback target after a rollback with snapper.  
+The subvolume is specified in the title of the boot menu.  
+Improves the description of APT pre- and postsnapshot in the list output by Snapper.
 
 The functionality of [grub-btrfs](https://github.com/Antynea/grub-btrfs) remains unaffected.
 
-This project may be of interest for other debin based OS.
-
 **Issues with GRUB that have been worked on:**  
-+ The default boot entry always points to the "/@" subvolume using "rootflags=".  
-+ For kernel and initrd, the subvolume that was booted into is always used, not the Btrfs default subvolume.  
-+ The boot target is not clear from the title.
++ The standard boot entry is not adjusted after a rollback.  
++ The file /boot/grub/grub.cfg in the rollback target is not adjusted.  
++ GRUB continues to read the /boot/grub/grub.cfg file from the subvolume from  
+  which it read the file before the rollback. The rollback target can only be  
+  booted via the menu of the *grub-btrfs* extension.
 
 **Issues with systemd-boot that have been worked on:**  
 + After a rollback, systemd-boot does not create any menu entries for the rollback target.  
 + The default boot target also remains unchanged.  
-+ If r/w snapshots are deleted, the corresponding entries remain in the boot menu.
++ The boot entries of deleted r/w snapshots entries remain in the boot menu.
 
 **Issues with description of apt actions in snapper:**  
-+ snapper always only displays 'APT' in the description of the snapshots. Regardless of which apt action was executed.
++ Snapper always only displays 'apt' in the description of the snapshots.  
+  Regardless of which apt action was executed.
 
 Be sure to read the Info.md file before testing.
 
 --------
 
-# DE
+## DE
 
-## Beschreibung
+### Beschreibung
 
-Verbessert das Grub Menü nach einem Rollback mittels snapper oder manueller Änderung des Btrfs default Subvolumens.  
-Der Standard Booteintrag zeigt auf das neue default Subvolumen mit den dort vonhandenen Kerneln.
+Der Standardbooteintrag bootet nach einem Rollback mit Snapper in das Rollbackziel.  
+Im Titel des Bootmenüs wird das Subvolumen angegeben.  
+Verbessert die Beschreibung von APT Pre- und Postsnapshot in der durch Snapper  
+ausgegebenen Liste.
 
 Die Funktionalität von [grub-btrfs](https://github.com/Antynea/grub-btrfs) bleibt unberührt.
 
-Dieses Projekt kann für andere Debin basierte OS von Interesse sein.
+**Probleme mit GRUB, die bearbeitet wurden:**  
++ Nach einem Rollback wird der Standardbooteintrag nicht angepasst.  
++ Die Datei /boot/grub/grub.cfg im Rollbackziel wird nicht angepasst.  
++ GRUB liest die Datei /boot/grub/grub.cfg weiterhin aus dem Subvolumen, aus dem  
+  es die Datei vor dem Rollback las. Das booten des Rollbackziels ist nur über  
+  das Menü der Erweiterung *grub-btrfs* möglich.
 
-**Probleme mit GRUB, die bearbeitet wurden:**
-+ Der Standard Booteintrag zeigt mittels "rootflags=" immer auf das "/@" Subvolumen.  
-+ Für Kernel und initrd wird immer das Subvolumen verwendet, in das gebootet wurde, nicht das Btrfs default Subvolumen.  
-+ Aus dem Titel geht das Bootziel nicht hervor.
-
-**Probleme mit systemd-boot, die bearbeitet wurden:**
+**Probleme mit systemd-boot, die bearbeitet wurden:**  
 + Nach einem Rollback erstellt systemd-boot keine Menüeinträge für das Rollbackziel.  
 + Auch das Standard Bootziel bleibt unverändert.  
-+ Werden r/w snapshots gelöscht, verbleiben die korrespondierenden Einträge im Bootmenü.
++ Von gelöschten r/w Snapshots verbleiben die Booteinträge im Menü.
 
-**Probleme mit Beschreibung von apt-Aktionen in snapper:**
-+ snapper gibt in der Beschreibung der Snapshots immer 'APT' aus. Gleichgültig, welche apt-Aktion ausgeführt wurde.
+**Probleme mit der Beschreibung von apt Aktionen in snapper:**  
++ Snapper gibt in der Beschreibung der Snapshots immer 'apt' aus. Gleichgültig  
+  welche apt Aktion ausgeführt wurde.
 
 Vor dem Test bitte unbedingt die Datei Info.md lesen.
+

@@ -1,0 +1,8 @@
+50-siduction.sh                /usr/lib/snapper/plugins/
+91-siduction-entry-key.install /usr/lib/kernel/install.d/
+rollback-grub.sh               /usr/share/siduction/
+rollback-sd-boot.sh            /usr/share/siduction/
+snapshot-description.sh        /usr/share/siduction/
+grub-menu-title.sh             /usr/share/siduction/
+siduction_btrfs.service        /usr/lib/systemd/system/
+siduction_btrfs.path           /usr/lib/systemd/system/

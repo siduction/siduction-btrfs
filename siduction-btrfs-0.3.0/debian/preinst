@@ -1,0 +1,114 @@
+#!/usr/bin/bash
+#
+# preinst script for #PACKAGE#
+#
+
+set -e
+
+. /etc/default/distro
+
+
+###################################
+### Begin remove obsolet files. ###
+# From version 0.3.0, some previously used files must be removed.
+# This section will be removed in Q4 2026 at the latest.
+
+if [ -e /etc/systemd/system/siduction_btrfs.path ]; then
+	rm /etc/systemd/system/siduction_btrfs.path
+fi
+
+if [ -e /etc/systemd/system/siduction_btrfs.timer ]; then
+	rm /etc/systemd/system/siduction_btrfs.timer
+fi
+
+if [ "X$(systemctl is-enabled siduction_btrfs.timer)" = "Xenabled" ]; then
+	exec $(systemctl disable --now siduction_btrfs.timer)
+fi
+
+if [ -e /usr/lib/systemd/system/siduction_btrfs.timer ]; then
+	rm /usr/lib/systemd/system/siduction_btrfs.timer
+fi
+
+if [ -e /usr/share/siduction/test-btrfs-default.sh ]; then
+	rm /usr/share/siduction/test-btrfs-default.sh
+fi
+
+if [ -e /etc/grub.d/09_siduction-btrfs ]; then
+	rm /etc/grub.d/09_siduction-btrfs
+fi
+
+chmod 755 /etc/grub.d/10_linux
+
+#### End remove obsolet files. ####
+###################################
+
+
+# For the new systemd units we need a file with the name
+# of the file system type of the root directory.
+fstypename="/usr/share/siduction/$(findmnt -n -o FSTYPE /)"
+touch "$fstypename"
+echo "DO NOT REMOVE THIS FILE!" >> "$fstypename"
+echo "It is required by the siduction_btrfs systemd units." >> "$fstypename"
+
+# Now we use the snapper plugin dir.
+[ -d /usr/lib/snapper/plugins/ ] || mkdir /usr/lib/snapper/plugins
+
+if btrfs_default=$(btrfs subvolume get-default / 2>/dev/null); then
+	# Query the btrfs default subvolume and the booted subvolume.
+	# Declare required variables.
+	#
+	# Subvolume, that is set to default in Btrfs
+	if grep -q "@snapshots/" <<< ${btrfs_default}; then
+		btrfs_default=$(sed -E 's|[^@]*@|@|' <<< ${btrfs_default})
+		default_nr=$(cut -d '/' -f 2 <<< ${btrfs_default})
+		key=$((10000 - "$default_nr")) # $key is only required in systemd-boot.
+	
+	else
+		if ! grep @ <<< ${btrfs_default} &>/dev/null; then
+			exec $(btrfs subvolume set-default 256 / )
+		fi
+		btrfs_default="@"
+		default_nr="@"
+		key="10000" # $key is only required in systemd-boot.
+	fi
+	
+	# Create PRETTY_NAME extension.
+	token_ext="-snapshot-$default_nr"
+	name_ext=", snapshot $default_nr"
+else
+	token_ext=""
+	name_ext=""
+fi
+
+
+# The default installation uses GRUB.
+# The files 'os-release' and 'entry-token' are used by systemd-boot.
+# We create them to be compatible with systemd.
+echo "$FLL_DISTRO_NAME-$FLL_FLAVOUR$token_ext"  > /etc/kernel/entry-token
+
+# Remove symlink.
+if [ -h /etc/os-release ]; then
+	rm /etc/os-release
+fi
+
+name_firstup=$(echo $FLL_DISTRO_CODENAME_SAFE | sed -e 's/\(.\)/\u\1/')
+flav_upper=$(echo $FLL_FLAVOUR | tr '[:lower:]' '[:upper:]')
+
+cat << EOF > /etc/os-release
+PRETTY_NAME="$FLL_DISTRO_NAME $name_firstup $flav_upper$name_ext"
+NAME="$FLL_DISTRO_NAME"
+VERSION_CODENAME=$FLL_DISTRO_CODENAME_SAFE
+VERSION="$name_firstup"
+VARIANT="$flav_upper"
+VARIANT_ID=$FLL_FLAVOUR
+ID=$FLL_DISTRO_NAME
+ID_LIKE=debian
+HOME_URL="https://siduction.org"
+SUPPORT_URL="https://forum.siduction.org"
+EOF
+
+
+#DEBHELPER#
+
+exit 0
+

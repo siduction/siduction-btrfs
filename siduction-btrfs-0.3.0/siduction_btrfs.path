@@ -1,0 +1,14 @@
+# /usr/lib/systemd/system/siduction_btrfs.path
+[Unit]
+Description=Part of siduction-btrfs
+Description=Monitors changes of grub.cfg
+Documentation=https://github.com/siduction/siduction-btrfs
+After=siduction_btrfs.service
+ConditionPathExists=/boot/grub/grub.cfg
+ConditionPathExists=/usr/share/siduction/btrfs
+
+[Path]
+PathChanged=/boot/grub/grub.cfg
+
+[Install]
+WantedBy=multi-user.target
