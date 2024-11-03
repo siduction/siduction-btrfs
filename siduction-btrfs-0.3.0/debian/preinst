@@ -37,7 +37,9 @@ if [ -e /etc/grub.d/09_siduction-btrfs ]; then
 	rm /etc/grub.d/09_siduction-btrfs
 fi
 
-chmod 755 /etc/grub.d/10_linux
+if [ -e /etc/grub.d/10_linux ]; then
+	chmod 755 /etc/grub.d/10_linux
+fi
 
 #### End remove obsolet files. ####
 ###################################
@@ -51,7 +53,9 @@ echo "DO NOT REMOVE THIS FILE!" >> "$fstypename"
 echo "It is required by the siduction_btrfs systemd units." >> "$fstypename"
 
 # Now we use the snapper plugin dir.
-[ -d /usr/lib/snapper/plugins/ ] || mkdir /usr/lib/snapper/plugins
+if [ ! -d /usr/lib/snapper/plugins/ ]; then
+	mkdir /usr/lib/snapper/plugins
+fi
 
 if btrfs_default=$(btrfs subvolume get-default / 2>/dev/null); then
 	# Query the btrfs default subvolume and the booted subvolume.
