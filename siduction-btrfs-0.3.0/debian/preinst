@@ -21,8 +21,8 @@ if [ -e /etc/systemd/system/siduction_btrfs.timer ]; then
 	rm /etc/systemd/system/siduction_btrfs.timer
 fi
 
-if [ "X$(systemctl is-enabled siduction_btrfs.timer)" = "Xenabled" ]; then
-	exec $(systemctl disable --now siduction_btrfs.timer)
+if [ -e /etc/systemd/system/multi-user.target.wants/siduction_btrfs.timer ]; then
+	rm /etc/systemd/system/multi-user.target.wants/siduction_btrfs.timer
 fi
 
 if [ -e /usr/lib/systemd/system/siduction_btrfs.timer ]; then
