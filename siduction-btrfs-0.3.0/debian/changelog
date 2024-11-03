@@ -3,7 +3,7 @@ siduction-btrfs (0.3.0-2) unstable; urgency=medium
   [Axel Konrad]
   * fixes
 
- -- Torsten Wohlfarth <towo@siduction.org>
+ -- Torsten Wohlfarth <towo@siduction.org>  Sun, 03 Nov 2024 14:11:07 +0100
 
 siduction-btrfs (0.3.0-1) unstable; urgency=medium
 
