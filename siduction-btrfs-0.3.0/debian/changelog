@@ -3,7 +3,7 @@ siduction-btrfs (0.3.0-4) unstable; urgency=medium
   [Axel Konrad]
   * fixes 91-siduction-entry-key.install. Only run if / is btrfs.
 
- -- Torsten Wohlfarth <towo@siduction.org>
+ -- Torsten Wohlfarth <towo@siduction.org>  Sat, 16 Nov 2024 17:18:16 +0100
 
 siduction-btrfs (0.3.0-3) unstable; urgency=medium
 
