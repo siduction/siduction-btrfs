@@ -7,6 +7,11 @@
 
 set -e
 
+# Only run if / is btrfs
+if [ ! -e /usr/share/siduction/btrfs ]; then
+	exit 0
+fi
+
 entry_path="${3:?}" 
 
 . /etc/os-release
@@ -30,7 +35,7 @@ sn_nr=$(grep -o "shot-[0-9@]\+" <<< $entry_path | sed s'!shot-!!')
 if [ "X$sn_nr" = "X@" ]; then
 	key="10000"
 else
-	key=$((10000 - "$sn_nr"))
+	key=$((10000 - "0$sn_nr"))
 fi
 
 # Change the sort key.
