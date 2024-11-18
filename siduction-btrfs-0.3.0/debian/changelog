@@ -1,3 +1,10 @@
+siduction-btrfs (0.3.0-5) unstable; urgency=medium
+
+  [Axel Konrad]
+  * 91-siduction-entry-key.install. Only run if command is 'add'.
+
+ -- Torsten Wohlfarth <towo@siduction.org>
+
 siduction-btrfs (0.3.0-4) unstable; urgency=medium
 
   [Axel Konrad]
