@@ -6,8 +6,9 @@
 
 set -e
 
-# Check if Btrfs. Get default subvolume.
-if [ "X$3" = "Xbtrfs" ]; then
+
+# Check whether it is the root file system and with Btrfs. Get default subvolume.
+if [ "X$2" = "X/" ] && [ "X$3" = "Xbtrfs" ]; then
 	btrfs_default=$(btrfs subvolume get-default / )
 else
 	exit 0

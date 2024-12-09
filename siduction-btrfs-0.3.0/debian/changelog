@@ -1,3 +1,10 @@
+siduction-btrfs (0.3.0-6) unstable; urgency=medium
+
+  [Axel Konrad]
+  * Run 50-siduction.sh only it is root file system.
+
+ -- Torsten Wohlfarth <towo@siduction.org>
+
 siduction-btrfs (0.3.0-5) unstable; urgency=medium
 
   [Axel Konrad]
