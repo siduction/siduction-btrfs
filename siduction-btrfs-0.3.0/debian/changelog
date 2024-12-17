@@ -3,7 +3,7 @@ siduction-btrfs (0.3.0-7) unstable; urgency=medium
   [Axel Konrad]
   * Add snapper config file 'rolling'.
 
- -- Torsten Wohlfarth <towo@siduction.org>
+ -- Torsten Wohlfarth <towo@siduction.org>  Tue, 17 Dec 2024 21:27:32 +0100
 
 siduction-btrfs (0.3.0-6) unstable; urgency=medium
 
