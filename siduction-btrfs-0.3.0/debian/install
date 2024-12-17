@@ -6,3 +6,4 @@ snapshot-description.sh        /usr/share/siduction/
 grub-menu-title.sh             /usr/share/siduction/
 siduction_btrfs.service        /usr/lib/systemd/system/
 siduction_btrfs.path           /usr/lib/systemd/system/
+rolling                        /usr/share/snapper/config-templates/
