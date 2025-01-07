@@ -3,6 +3,7 @@ siduction-btrfs (0.3.0-8) unstable; urgency=medium
   [Axel Konrad]
   * APT log became more verbose. Filtering extended.
   * Improved description.
+  * Typo
 
  -- Torsten Wohlfarth <towo@siduction.org>
 

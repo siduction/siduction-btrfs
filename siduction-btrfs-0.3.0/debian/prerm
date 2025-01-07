@@ -1,6 +1,6 @@
-#! /bin/bash
+#!/usr/bin/bash
 #
-# postrm script for #PACKAGE#
+# prerm script for #PACKAGE#
 #
 
 set -e
