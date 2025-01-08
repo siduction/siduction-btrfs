@@ -187,7 +187,7 @@ esac
 if [ $pre_date -le $apt_start ] && [ $post_date -ge $apt_end ]; then
 	if [ "$count" -gt 1 ]; then
 		((--count))
-		if [ "x$apt_command" = "xAutoremove" ]; then
+		if [ "x$apt_command" = "xAutoremove" ] || [ "x$apt_command" = "xAutopurge" ]; then
 		apt_package="$count pkg"
 		else
 		apt_package="$apt_package +$count pkg"
