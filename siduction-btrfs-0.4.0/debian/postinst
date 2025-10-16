@@ -1,0 +1,15 @@
+#!/usr/bin/bash
+#
+# postinst script for #PACKAGE#
+#
+
+set -e
+
+exec $(systemctl daemon-reload)
+
+exec $(systemctl enable --now siduction_btrfs.path)
+
+#DEBHELPER#
+
+exit 0
+

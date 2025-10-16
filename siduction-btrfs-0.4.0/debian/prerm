@@ -1,0 +1,23 @@
+#!/usr/bin/bash
+#
+# prerm script for #PACKAGE#
+#
+
+set -e
+
+# Remove the systemd condition file.
+fstypename="/usr/share/siduction/$(findmnt -n -o FSTYPE /)"
+if [ -e "$fstypename" ]; then
+	rm "$fstypename"
+fi
+
+# Cleanup systemd unit.
+if [ -e /etc/systemd/system/siduction_btrfs.path ]; then
+	rm /etc/systemd/system/siduction_btrfs.path
+fi
+
+exec $(systemctl disable --now siduction_btrfs.path)
+
+#DEBHELPER#
+
+exit 0
