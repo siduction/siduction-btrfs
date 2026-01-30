@@ -1,8 +1,17 @@
+siduction-btrfs (0.4.0-2) unstable; urgency=medium
+
+  [Axel Konrad]
+  * snapshot-description
+    - Fix space in kernel-rm.
+
+ -- Axel Konrad <ak-li@siduction.org> Fri, 30 Jan 2026 11:03:44 +0100
+ 
 siduction-btrfs (0.4.0-1) unstable; urgency=medium
 
   [Axel Konrad]
   * Using the new APT commands 'history-list' and 'history-info'
-
+  
+ -- Axel Konrad <ak-li@siduction.org> Thu, 16 Oct 2025 19:26:31 +0200
 
 siduction-btrfs (0.3.0-8) unstable; urgency=medium
 

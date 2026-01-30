@@ -119,7 +119,7 @@ apt_package=""
 
 case "$value" in
 "apt-get remove --purge --yes linux-")
-	apt_command="kernel-rm"
+	apt_command="kernel-rm "
 	apt_package=$( grep -o "image[[:print:]]\+[a-z]" <<< "$apt_full_command" \
 					| grep -o "[.0-9]\+-[0-9]")
 	;;
