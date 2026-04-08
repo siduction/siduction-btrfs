@@ -15,7 +15,7 @@ Files:     debian/*
            siduction_btrfs.timer
            snapshot-description.sh
            
-Copyright: 2006-2025 Free Software Foundation, Inc.
+Copyright: 2006-2026 Free Software Foundation, Inc.
 License:   GPL-3.0+
  .
  On Debian systems, the complete text of the GNU General Public License

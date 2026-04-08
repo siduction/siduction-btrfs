@@ -54,15 +54,15 @@ fi
 # The new snapshot maybe based on an apt action.
 # We search for post snapshots with apt action in snapper
 # and the corresponding action in the apt log file.
-if snapper_last_post=$(snapper --no-headers --machine-readable csv list \
-  | tail -n 1 | grep ",$post_num,.*,post,.*,apt,"); then
-	snapper_last_pre=$(snapper --no-headers --machine-readable csv list \
-	  | tail -n 2 | grep ",pre,.*,apt,")
-
+if snapper_list=$(snapper --csvout list -t pre-post \
+	--columns number,post-number,type,description,date,post-date | \
+	tail -n1 | grep "^[0-9]\+,$post_num,pre,apt,"); then
+	# Example: 70,73,pre,apt,2026-04-07 20:31:50,2026-04-07 20:36:20
+	
 	# The required variables are filled with the values from snapper.
-	post_date=$(echo "$snapper_last_post" | cut -d "," -f 8 | sed 's![: -]!!g')
-	pre_date=$(echo "$snapper_last_pre" | cut -d "," -f 8 | sed 's![: -]!!g')
-	pre_num=$(( "$post_num" - 1 ))
+	pre_num=$(echo "$snapper_list" | cut -d "," -f 1)
+	pre_date=$(echo "$snapper_list" | cut -d "," -f 5 | sed 's![: -]!!g')
+	post_date=$(echo "$snapper_list" | cut -d "," -f 6 | sed 's![: -]!!g')
 else
 	# This is not an apt post snapshot.
 	echo "$(date  +%T) snapshot-description: No complete apt action." >> /var/log/snapper.log

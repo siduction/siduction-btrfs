@@ -1,3 +1,13 @@
+siduction-btrfs (0.4.0-3) unstable; urgency=medium
+
+  [Axel Konrad]
+  * snapshot-description
+    - Update the description even if additional snapshots are created
+      between the pre and post snapshots.
+  * copyright updated
+
+ -- Axel Konrad <ak-li@siduction.org> Wed, 08 Apr 2026 12:14:39 +0200
+ 
 siduction-btrfs (0.4.0-2) unstable; urgency=medium
 
   [Axel Konrad]
