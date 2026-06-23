@@ -32,6 +32,12 @@ case "$1" in
             cp -an /usr/share/siduction-btrfs/configs/root /etc/snapper/configs/root
             cp -an /usr/share/siduction-btrfs/configs/home /etc/snapper/configs/home
         fi
+        if [ -d /run/systemd/system ]; then
+            echo "Set siduction systemd-presets for snapper ..."
+            systemctl --system daemon-reload || true
+            systemctl --system preset snapper-boot.timer || true
+            systemctl --system preset snapper-timeline.timer || true
+        fi
     ;;
     abort-upgrade|abort-remove|abort-deconfigure)
     ;;
