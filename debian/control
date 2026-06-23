@@ -1,14 +1,13 @@
 Source: siduction-btrfs
 Section: utils
 Priority: optional
-XSBC-Original-Maintainer: Axel Konrad <ak-li@siduction.org>
-Maintainer: TUXEDO Computers <tux@siductioncomputers.com>
+Maintainer: Axel Konrad <ak-li@siduction.org>
 Build-Depends: debhelper-compat (= 13)
 Standards-Version: 4.6.2
 Homepage: https://github.com/siduction/siduction-btrfs
 Rules-Requires-Root: no
-Vcs-Git: https://gitlab.com/siductioncomputers/development/packages/siduction-btrfs
-Vcs-Browser: https://gitlab.com/siductioncomputers/development/packages/siduction-btrfs
+Vcs-Git: https://github.com/siduction/siduction-btrfs
+Vcs-Browser: https://github.com/siduction/siduction-btrfs
 
 Package: siduction-btrfs
 Architecture: all
