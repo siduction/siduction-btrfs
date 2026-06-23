@@ -1,8 +1,8 @@
 #!/bin/bash
 #
-# Name: /usr/share/tuxedo-btrfs/rollback-grub.sh
-# Part of tuxedo-btrfs
-# Called by /usr/lib/snapper/plugins/50-tuxedo.sh
+# Name: /usr/share/siduction-btrfs/rollback-grub.sh
+# Part of siduction-btrfs
+# Called by /usr/lib/snapper/plugins/50-siduction.sh
 #
 # Switch to the rollback target and run the commands
 # 'update-grub' and 'grub-install'.
@@ -11,7 +11,7 @@
 
 set -e
 
-. /etc/default/grub.d/tuxedo.cfg
+. /etc/default/grub.d/siduction.cfg
 
 # After rollback, subvolume that is set to default in Btrfs.
 default_nr="$1"
@@ -67,7 +67,7 @@ chroot ${tmp_dir} /usr/bin/bash -x << 'EOF'
 mount /boot &>/dev/null || true
 mount /boot/efi &>/dev/null || true
 
-. /etc/default/grub.d/tuxedo.cfg
+. /etc/default/grub.d/siduction.cfg
 . /etc/os-release
 
 /usr/sbin/update-grub

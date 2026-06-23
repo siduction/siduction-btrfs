@@ -1,8 +1,8 @@
 #!/usr/bin/bash
 #
-# Name: /usr/share/tuxedo-btrfs/snapshot-description.sh
-# Part of tuxedo-btrfs
-# Called by /usr/lib/snapper/plugins/50-tuxedo.sh
+# Name: /usr/share/siduction-btrfs/snapshot-description.sh
+# Part of siduction-btrfs
+# Called by /usr/lib/snapper/plugins/50-siduction.sh
 #
 # Since apt 3.1.6 command history-list and history-info
 #

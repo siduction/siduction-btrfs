@@ -1,10 +1,10 @@
-# /usr/lib/systemd/system/tuxedo_btrfs.path
+# /usr/lib/systemd/system/siduction_btrfs.path
 [Unit]
-Description=Part of tuxedo-btrfs
+Description=Part of siduction-btrfs
 Description=Monitors changes of grub.cfg
-Documentation=https://github.com/tuxedo/tuxedo-btrfs
+Documentation=https://github.com/siduction/siduction-btrfs
 ConditionPathExists=/boot/grub/grub.cfg
-ConditionPathExists=/usr/share/tuxedo-btrfs/btrfs
+ConditionPathExists=/usr/share/siduction-btrfs/btrfs
 
 [Path]
 PathChanged=/boot/grub/grub.cfg
