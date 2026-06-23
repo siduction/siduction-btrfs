@@ -1,27 +1,17 @@
-siduction-btrfs (0.4.0-3) unstable; urgency=medium
+siduction-btrfs (0.4.1-1-tux1) unstable; urgency=medium
 
-  [Axel Konrad]
-  * snapshot-description
-    - Update the description even if additional snapshots are created
-      between the pre and post snapshots.
-  * copyright updated
+  * add preconfigs for root and home
+  * fix paths /usr/share/siduction/ => /usr/share/siduction-btrfs/
+  * use debhelper for systemd-units
 
- -- Axel Konrad <ak-li@siduction.org> Wed, 08 Apr 2026 12:14:39 +0200
- 
-siduction-btrfs (0.4.0-2) unstable; urgency=medium
+ -- Torsten Wohlfarth <tux@siductioncomputers.com>  Mon, 22 Jun 2026 10:20:01 +0200
 
-  [Axel Konrad]
-  * snapshot-description
-    - Fix space in kernel-rm.
-
- -- Axel Konrad <ak-li@siduction.org> Fri, 30 Jan 2026 11:03:44 +0100
- 
 siduction-btrfs (0.4.0-1) unstable; urgency=medium
 
   [Axel Konrad]
   * Using the new APT commands 'history-list' and 'history-info'
-  
- -- Axel Konrad <ak-li@siduction.org> Thu, 16 Oct 2025 19:26:31 +0200
+
+ -- Torsten Wohlfarth <towo@siduction.org>  Fri, 17 Oct 2025 13:26:23 +0200
 
 siduction-btrfs (0.3.0-8) unstable; urgency=medium
 

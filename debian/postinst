@@ -5,9 +5,42 @@
 
 set -e
 
-exec $(systemctl daemon-reload)
+case "$1" in
+    configure)
+        if ! snapper list-configs | grep -q "^root " 2>/dev/null; then
+            echo "Create snapper-configuration for root..."
+            snapper --no-dbus create-config -f btrfs / || true
+	    rm -f /etc/snapper/configs/root
+        fi
+        if ! snapper list-configs | grep -q "^home " 2>/dev/null; then
+            echo "Create snapper-configuration for home..."
+            if [ -d /home ]; then
+                snapper --no-dbus -c home create-config -f btrfs /home || true
+		rm -f /etc/snapper/configs/home
+            fi
+        fi
+        # registe existing snapper configs with UCF
+        if [ -x "/usr/bin/ucf" ]; then
+            echo "check for existing snapper-configurations..."
+            ucf --three-way /usr/share/siduction-btrfs/configs/root /etc/snapper/configs/root
+            ucf --three-way /usr/share/siduction-btrfs/configs/home /etc/snapper/configs/home
+            
+            ucfr siduction-btrfs /etc/snapper/configs/root
+            ucfr siduction-btrfs /etc/snapper/configs/home
+        else
+            # Fallback force copy default configs
+            cp -an /usr/share/siduction-btrfs/configs/root /etc/snapper/configs/root
+            cp -an /usr/share/siduction-btrfs/configs/home /etc/snapper/configs/home
+        fi
+    ;;
+    abort-upgrade|abort-remove|abort-deconfigure)
+    ;;
 
-exec $(systemctl enable --now siduction_btrfs.path)
+    *)
+        echo "postinst called with unknown argument \`$1'" >&2
+        exit 1
+    ;;
+esac
 
 #DEBHELPER#
 

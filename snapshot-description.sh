@@ -1,8 +1,8 @@
 #!/usr/bin/bash
 #
-# Name: /usr/share/siduction/snapshot-description.sh
-# Part of siduction-btrfs
-# Called by /usr/lib/snapper/plugins/50-siduction.sh
+# Name: /usr/share/tuxedo-btrfs/snapshot-description.sh
+# Part of tuxedo-btrfs
+# Called by /usr/lib/snapper/plugins/50-tuxedo.sh
 #
 # Since apt 3.1.6 command history-list and history-info
 #
@@ -54,15 +54,15 @@ fi
 # The new snapshot maybe based on an apt action.
 # We search for post snapshots with apt action in snapper
 # and the corresponding action in the apt log file.
-if snapper_list=$(snapper --csvout list -t pre-post \
-	--columns number,post-number,type,description,date,post-date | \
-	tail -n1 | grep "^[0-9]\+,$post_num,pre,apt,"); then
-	# Example: 70,73,pre,apt,2026-04-07 20:31:50,2026-04-07 20:36:20
-	
+if snapper_last_post=$(snapper --no-headers --machine-readable csv list \
+  | tail -n 1 | grep ",$post_num,.*,post,.*,apt,"); then
+	snapper_last_pre=$(snapper --no-headers --machine-readable csv list \
+	  | tail -n 2 | grep ",pre,.*,apt,")
+
 	# The required variables are filled with the values from snapper.
-	pre_num=$(echo "$snapper_list" | cut -d "," -f 1)
-	pre_date=$(echo "$snapper_list" | cut -d "," -f 5 | sed 's![: -]!!g')
-	post_date=$(echo "$snapper_list" | cut -d "," -f 6 | sed 's![: -]!!g')
+	post_date=$(echo "$snapper_last_post" | cut -d "," -f 8 | sed 's![: -]!!g')
+	pre_date=$(echo "$snapper_last_pre" | cut -d "," -f 8 | sed 's![: -]!!g')
+	pre_num=$(( "$post_num" - 1 ))
 else
 	# This is not an apt post snapshot.
 	echo "$(date  +%T) snapshot-description: No complete apt action." >> /var/log/snapper.log
@@ -119,7 +119,7 @@ apt_package=""
 
 case "$value" in
 "apt-get remove --purge --yes linux-")
-	apt_command="kernel-rm "
+	apt_command="kernel-rm"
 	apt_package=$( grep -o "image[[:print:]]\+[a-z]" <<< "$apt_full_command" \
 					| grep -o "[.0-9]\+-[0-9]")
 	;;

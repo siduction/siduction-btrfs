@@ -1,14 +1,14 @@
 #!/bin/bash
 #
-# Name: /usr/share/siduction/grub-menu-title.sh
-# Part of siduction-btrfs
-# Called by /usr/lib/systemd/system/siduction_grubmenutitle.service
-#        or /usr/lib/snapper/plugins/50-siduction.sh
+# Name: /usr/share/tuxedo-btrfs/grub-menu-title.sh
+# Part of tuxedo-btrfs
+# Called by /usr/lib/systemd/system/tuxedo_grubmenutitle.service
+#        or /usr/lib/snapper/plugins/50-tuxedo.sh
 # Modifies the title of the default boot entry of grub.cfg.
 
 set -e
 
-. /etc/default/grub.d/siduction.cfg
+. /etc/default/grub.d/tuxedo.cfg
 . /etc/os-release
 
 # Determine the booted subvolume.

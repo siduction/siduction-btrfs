@@ -8,7 +8,7 @@
 set -e
 
 # Only run if / is btrfs
-if [ ! -e /usr/share/siduction/btrfs ]; then
+if [ ! -e /usr/share/siduction-btrfs/btrfs ]; then
 	exit 0
 fi
 
