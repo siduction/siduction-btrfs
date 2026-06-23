@@ -19,7 +19,7 @@ case "$1" in
 		rm -f /etc/snapper/configs/home
             fi
         fi
-        # registe existing snapper configs with UCF
+        # register existing snapper configs with UCF
         if [ -x "/usr/bin/ucf" ]; then
             echo "check for existing snapper-configurations..."
             ucf --three-way /usr/share/siduction-btrfs/configs/root /etc/snapper/configs/root
@@ -32,11 +32,23 @@ case "$1" in
             cp -an /usr/share/siduction-btrfs/configs/root /etc/snapper/configs/root
             cp -an /usr/share/siduction-btrfs/configs/home /etc/snapper/configs/home
         fi
-        if [ -d /run/systemd/system ]; then
-            echo "Set siduction systemd-presets for snapper ..."
-            systemctl --system daemon-reload || true
-            systemctl --system preset snapper-boot.timer || true
-            systemctl --system preset snapper-timeline.timer || true
+	# checking chroot
+        if systemd-detect-virt --chroot >/dev/null 2>&1; then
+            echo "Running in chroot. Force deactivating snapper-timera ..."
+            rm -f /etc/systemd/system/timers.target.wants/snapper-boot.timer
+            rm -f /etc/systemd/system/timers.target.wants/snapper-timeline.timer
+            
+            if [ -x "/usr/bin/deb-systemd-helper" ]; then
+                deb-systemd-helper disable snapper-boot.timer >/dev/null 2>&1 || true
+                deb-systemd-helper disable snapper-timeline.timer >/dev/null 2>&1 || true
+            fi
+        else
+            if [ -d /run/systemd/system ]; then
+                echo "Set siduction systemd-presets for snapper ..."
+                systemctl --system daemon-reload || true
+                systemctl --system preset snapper-boot.timer || true
+                systemctl --system preset snapper-timeline.timer || true
+            fi
         fi
     ;;
     abort-upgrade|abort-remove|abort-deconfigure)
