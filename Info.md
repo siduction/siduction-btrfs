@@ -31,16 +31,17 @@ The ESP is mounted under */efi*, or in the absence of the XBOOTLDR under */boot*
 and the scripts  
 */usr/lib/snapper/plugins/50-siduction.sh*  
 */usr/share/siduction/rollback-grub.sh*  
-*/usr/share/siduction/grub-menu-title.sh  
+*/usr/share/siduction/grub-menu-title.sh*  
 */usr/share/siduction/rollback-sd-boot.sh*  
 */usr/share/siduction/snapshot-description.sh*  
+*/usr/lib/systemd/system-preset/60-siduction-btrfs.preset*  
 */usr/lib/kernel/install.d/91-siduction-entry-key.install*
 
 ### How the package works
 
 As of version 0.3.0, siduction-btrfs uses the Snapper plugin directory.  
 There the script *50-siduction* listens to the Snapper actions in the root subvolume and executes the scripts *snapshot-description*, *rollback-grub*, *grub-menu-title*, or *rollback-sd-boot* if required.  
-To manage snapshots, snapper-gui is quite useful. However, a rollback requires a terminal with root rights.
+The graphical program *btrfs-assistant* is very useful for managing snapshots. However, a rollback requires a terminal with root rights.
 
 **When using the boot manager GRUB**  
 After a rollback, the file */boot/grub/grub.cfg* is recreated in the rollback target using chroot and GRUB is then reinstalled from the rollback target. This allows the user to access the rollback target directly with a simple reboot. All other subvolumes, including the previously used one, can be accessed via the *siduction snapshots* submenu.  
@@ -88,16 +89,17 @@ Die ESP hängt man unter */efi*, oder bei Abwesenheit der XBOOTLDR unter */boot*
 und die Skripte  
 */usr/lib/snapper/plugins/50-siduction.sh*  
 */usr/share/siduction/rollback-grub.sh*  
-*/usr/share/siduction/grub-menu-title.sh  
+*/usr/share/siduction/grub-menu-title.sh*  
 */usr/share/siduction/rollback-sd-boot.sh*  
 */usr/share/siduction/snapshot-description.sh*  
+*/usr/lib/systemd/system-preset/60-siduction-btrfs.preset*  
 */usr/lib/kernel/install.d/91-siduction-entry-key.install*
 
 ### Wie das Paket arbeitet
 
 Ab Version 0.3.0 verwendet siduction-btrfs das Snapper Plugin Verzeichnis.  
 Dort lauscht das Skript *50-siduction* auf die Snapper Aktionen im root Subvolumen und führt bei Bedarf die Skripte *snapshot-description*, *rollback-grub*, *grub-menu-title* oder *rollback-sd-boot* aus.  
-Um Schnappschüsse zu verwalten, ist snapper-gui ganz nützlich. Ein Rollback jedoch erfordert ein Terminal mit root Rechten.
+Zur Verwaltung von Snapshots ist das graphische Programm *btrfs-assistant* sehr nützlich. Ein Rollback jedoch erfordert ein Terminal mit root Rechten.
 
 **Bei Verwendung des Bootmanagers GRUB**  
 Nach einem Rollback wird im Rollbackziel mittels chroot die Datei */boot/grub/grub.cfg* neu erstellt und anschließend aus dem Rollbackziel heraus GRUB neu installiert. Dadurch gelangt der User mit einem einfachen Reboot direkt in das Rollbackziel. Alle anderen Subvolumen, auch das zuvor verwendete, sind über das Untermenü *siduction snapshots* erreichbar.  
