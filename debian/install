@@ -6,7 +6,6 @@ rollback-sd-boot.sh		    	/usr/share/siduction-btrfs/
 snapshot-description.sh			/usr/share/siduction-btrfs/
 grub-menu-title.sh	    		/usr/share/siduction-btrfs/
 configs/*	        			/usr/share/snapper/config-templates/
-rolling				    	    /usr/share/snapper/config-templates/
 siduction_btrfs.service			/usr/lib/systemd/system/
 siduction_btrfs.path			/usr/lib/systemd/system/
 60-siduction-btrfs.preset		/usr/lib/systemd/system-preset/
