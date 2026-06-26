@@ -4,8 +4,8 @@ Optimizes the boot menu and the description in Snapper
 After a rollback with Snapper, siduction-btrfs sets the default boot entry to
 the rollback target.
 When using Grub:
-The default boot entry points to the new default subvolume.
-After rebooting into the new default subvolume, grub is installed from there.
+After a rollback, the file /boot/grub/grub.cfg is recreated in the rollback
+target using chroot and then GRUB is reinstalled from the rollback target.
 When using systemd-boot:
 siduction-btrfs generates new menu entries. All kernels present in the
 rollback target are taken into account. After deleting subvolumes,
@@ -19,4 +19,4 @@ based on Debian SID.
 
 The functionality of grub-btrfs remains unaffected.
 
- -- Axel Konrad <ak-li@siduction.org>  Sun, 26 Jul 2024 19:30:07 +0200
+ -- Axel Konrad <ak-li@siduction.org>  Thu, 25 Jun 2026 14:12:32 +0200

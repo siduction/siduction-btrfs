@@ -1,0 +1,26 @@
+#!/bin/sh
+set -e
+
+case "$1" in
+    purge)
+        # purgeing ucf registered files
+        if [ -x "/usr/bin/ucf" ]; then
+            ucf --purge /etc/snapper/configs/root
+            ucf --purge /etc/snapper/configs/home
+            ucfr --purge siduction-btrfs /etc/snapper/configs/root
+            ucfr --purge siduction-btrfs /etc/snapper/configs/home
+        fi
+        
+        # force delete snapper configs
+        rm -f /etc/snapper/configs/root
+        rm -f /etc/snapper/configs/home
+
+        if [ -d /run/systemd/system ]; then
+            systemctl --system daemon-reload >/dev/null || true
+        fi
+    ;;
+esac
+
+#DEBHELPER#
+
+exit 0

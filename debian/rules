@@ -2,3 +2,6 @@
 
 %:
 	dh $@
+
+override_dh_installsystemd:
+	dh_installsystemd --name=siduction_btrfs --no-stop-on-upgrade

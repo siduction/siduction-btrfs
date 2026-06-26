@@ -6,15 +6,18 @@ Build-Depends: debhelper-compat (= 13)
 Standards-Version: 4.6.2
 Homepage: https://github.com/siduction/siduction-btrfs
 Rules-Requires-Root: no
-#Vcs-Git: https://salsa.debian.org/debian/siduction-btrfs.git
-#Vcs-Browser: https://salsa.debian.org/debian/siduction-btrfs
+Vcs-Git: https://github.com/siduction/siduction-btrfs
+Vcs-Browser: https://github.com/siduction/siduction-btrfs
 
 Package: siduction-btrfs
 Architecture: all
 Depends: btrfs-progs,
          snapper,
+         ucf,
          ${misc:Depends},
          ${shlibs:Depends}
+Recommends: grub-btrfs,
+            btrfs-assistant
 Description: Optimizes the boot menu and the description in Snapper
  After a rollback with Snapper, siduction-btrfs sets the default boot
  entry to the rollback target.

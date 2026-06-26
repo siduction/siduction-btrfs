@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# Name: /usr/share/siduction/rollback-sd-boot.sh
+# Name: /usr/share/siduction-btrfs/rollback-sd-boot.sh
 # Part of siduction-btrfs
 # Called by /usr/lib/snapper/plugins/50-siduction.sh
 # Creates new boot entries after a "snapper rollback" command.

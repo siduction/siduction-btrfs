@@ -3,13 +3,14 @@ Upstream-Name: siduction-btrfs
 Upstream-Contact: ak-li@siduction.org
 Source: https://github.com/siduction/siduction-btrfs
 
-Files:     debian/*
+Files:     configs/*
+           debian/*
            50-siduction.sh
+           60-siduction-btrfs.preset
            91-siduction-entry-key.install
            grub-menu-title.sh
            rollback-grub.sh
            rollback-sd-boot.sh
-           rolling
            siduction_btrfs.path
            siduction_btrfs.service
            siduction_btrfs.timer

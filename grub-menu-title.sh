@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# Name: /usr/share/siduction/grub-menu-title.sh
+# Name: /usr/share/siduction-btrfs/grub-menu-title.sh
 # Part of siduction-btrfs
 # Called by /usr/lib/systemd/system/siduction_grubmenutitle.service
 #        or /usr/lib/snapper/plugins/50-siduction.sh

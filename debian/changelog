@@ -1,3 +1,11 @@
+siduction-btrfs (0.4.1-1) unstable; urgency=medium
+
+  * add preconfigs for root and home
+  * fix paths /usr/share/siduction/ => /usr/share/siduction-btrfs/
+  * use debhelper for systemd-units
+
+ -- Torsten Wohlfarth <tux@siductioncomputers.com>  Mon, 22 Jun 2026 10:20:01 +0200
+
 siduction-btrfs (0.4.0-3) unstable; urgency=medium
 
   [Axel Konrad]

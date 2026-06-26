@@ -1,0 +1,2 @@
+disable snapper-boot.timer
+disable snapper-timeline.timer

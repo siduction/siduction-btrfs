@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash	
 #
 # Name: /usr/lib/snapper/plugins/50-siduction.sh
 # Part of siduction-btrfs
@@ -38,7 +38,7 @@ case "$1" in
 "create-snapshot-post")
 	echo "$(date +%T) Plugin 50-siduction: Inside create-snapshot-post" >> /var/log/snapper.log
 	# If full apt-aktion is done, this script change snappers description.
-	/usr/share/siduction/snapshot-description.sh "$4" &
+	/usr/share/siduction-btrfs/snapshot-description.sh "$4" &
 	;;
 
 # This section is for systemd-boot only.
@@ -84,7 +84,7 @@ case "$1" in
 	if [ -e /boot/grub/grub.cfg ] && [ -w /boot/grub/grub.cfg ]; then
 		
 		echo "$(date +%T) Plugin 50-siduction: Forwarding to rollback-grub." >> /var/log/snapper.log
-		/usr/share/siduction/rollback-grub.sh "$new_sn" &
+		/usr/share/siduction-btrfs/rollback-grub.sh "$new_sn" &
 		wait
 		echo "$(date +%T) Plugin 50-siduction: Return from rollback-grub." >> /var/log/snapper.log
 		true
@@ -97,7 +97,7 @@ case "$1" in
 		# Create a menu entry for the rollback target.
 		echo "$(date +%T) Plugin 50-siduction: Forwarding to rollback-sd-boot." >> /var/log/snapper.log
 	
-		/usr/share/siduction/rollback-sd-boot.sh "$new_sn" "$sd_boot_dir" "$entry_part" &
+		/usr/share/siduction-btrfs/rollback-sd-boot.sh "$new_sn" "$sd_boot_dir" "$entry_part" &
 		wait
 		echo "$(date +%T) Plugin 50-siduction: Return from rollback-sd-boot." >> /var/log/snapper.log
 		
@@ -134,4 +134,5 @@ case "$1" in
 	fi
 	;;
 esac
+update-grub
 exit 0

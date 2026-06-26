@@ -1,12 +1,11 @@
 # /usr/lib/systemd/system/siduction_btrfs.service
 [Unit]
-Description=Part of siduction-btrfs
+Description=TUXEDO BTRFS Service
 Description=Update GRUB menu title.
 Documentation=https://github.com/siduction/siduction-btrfs
-Before=siduction_btrfs.path
 ConditionPathExists=/boot/grub/grub.cfg
-ConditionPathExists=/usr/share/siduction/btrfs
+ConditionPathExists=/usr/share/siduction-btrfs/btrfs
 
 [Service]
 Type=oneshot
-ExecStart=/usr/share/siduction/grub-menu-title.sh
+ExecStart=/usr/share/siduction-btrfs/grub-menu-title.sh
